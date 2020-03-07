@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Tugas_Besar_IFTTW</string>
+    <string name="action_settings">Settings</string>
+    <string name="add_routine_name">Add New Routine</string>
+    <string name="title_activity_add_routine">AddRoutineActivity</string>
+    <string name="toolbar_main_title">Routines</string>
+    <string name="if_time_text">If Time =</string>
+    <string name="date_text">Date (optional)</string>
+    <string name="choose_date_hint">Choose Date</string>
+    <string name="choose_time_hint">Choose Time</string>
+    <string name="repeat_text">Repeat</string>
+    <string name="choose_frequency_hint">Choose Frequency</string>
+    <string name="then_text">Then:</string>
+    <string name="if_news_text">If Exists New News with Keyword =</string>
+    <string name="news_hint">Type Keyword</string>
+    <string name="if_temperature_text">If Temperature</string>
+    <string name="send_notif_radio">Send Me A Notification</string>
+    <string name="turn_wifi_radio">Turn Wi-Fi</string>
+    <string name="off_switch">OFF</string>
+    <string name="on_switch">ON</string>
+    <string name="add_button_string">Add</string>
+</resources>

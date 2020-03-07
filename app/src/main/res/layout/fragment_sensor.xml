@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="112dp"
+    android:background="#3C3C3C"
+    android:orientation="vertical">
+
+    <!--  If time field -->
+    <TextView
+        android:id="@+id/text_view_time_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/if_temperature_text"
+        android:textColor="@android:color/white"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout_choose_time_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+
+        android:layout_marginRight="64dp"
+        android:theme="@style/TextInputStyle"
+        app:hintEnabled="false"
+        app:hintTextAppearance="@style/TextInputHintStyle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_choose_time_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/choose_time_hint"
+            android:textColor="@android:color/white"
+            android:textColorHint="#898989"
+            android:textColorLink="@android:color/white"
+            android:textSize="24sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Date field -->
+
+    <TextView
+        android:id="@+id/text_view_date_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/date_text"
+        android:textColor="@android:color/white"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout_date_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+
+        android:layout_marginRight="64dp"
+        android:theme="@style/TextInputStyle"
+        app:hintEnabled="false"
+        app:hintTextAppearance="@style/TextInputHintStyle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_date_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/choose_date_hint"
+            android:textColor="@android:color/white"
+            android:textColorHint="#898989"
+            android:textColorLink="@android:color/white"
+            android:textSize="24sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Repeat -->
+    <TextView
+        android:id="@+id/text_view_repeat_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/repeat_text"
+        android:textColor="@android:color/white"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/text_input_layout_repeat_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+
+        android:layout_marginRight="64dp"
+        android:theme="@style/TextInputStyle"
+        app:hintEnabled="false"
+        app:hintTextAppearance="@style/TextInputHintStyle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_repeat_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/choose_frequency_hint"
+            android:textColor="@android:color/white"
+            android:textColorHint="#898989"
+            android:textColorLink="@android:color/white"
+            android:textSize="24sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+</LinearLayout>

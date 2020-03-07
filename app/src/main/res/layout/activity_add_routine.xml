@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3C3C3C">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".AddRoutineActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#3C3C3C"
+                android:theme="@style/TextInputStyle"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title="@string/add_routine_name" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"
+            app:tabIndicatorColor="#00B1FF"
+            app:tabIndicatorHeight="5dp"
+            app:tabPaddingEnd="16dp"
+            app:tabPaddingStart="16dp"
+            app:tabRippleColor="#00B1FF"
+            app:tabSelectedTextColor="#ffffff"
+            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+            app:tabTextColor="#838383" />
+
+        <!--    <androidx.viewpager.widget.ViewPager-->
+        <!--        android:id="@+id/viewPager"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_below="@id/tabLayout" />-->
+
+        <com.example.tugas_besar_ifttw.WrapContentViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tabLayout" />
+
+
+        <!--    <include layout="@layout/content_then_add_routine" />-->
+        <RelativeLayout
+            android:id="@+id/relative_layout_of_then_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/viewPager"
+            android:layout_marginTop="16dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context=".AddRoutineActivity"
+            tools:showIn="@layout/activity_add_routine">
+
+
+            <TextView
+                android:id="@+id/text_view_then_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="@string/then_text"
+                android:textColor="@android:color/white"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+
+            <RadioGroup
+                android:id="@+id/radio_group_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="36dp">
+
+                <RadioButton
+                    android:id="@+id/notif_radio_button_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/send_notif_radio"
+                    android:textColor="@android:color/white"
+                    app:buttonTint="@android:color/white" />
+
+                <RadioButton
+                    android:id="@+id/wifi_radio_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/turn_wifi_radio"
+                    android:textColor="@android:color/white"
+                    app:buttonTint="@android:color/white" />
+            </RadioGroup>
+
+            <RelativeLayout
+                android:id="@+id/switch_layout_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/radio_group_id"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="-48dp"
+                android:layout_marginRight="32dp"
+                android:layout_toRightOf="@id/radio_group_id"
+                android:clipToPadding="false"
+                android:paddingLeft="96dp">
+
+                <TextView
+                    android:id="@+id/wifi_off_text_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="21dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_toLeftOf="@id/wifi_switch_id"
+                    android:text="@string/off_switch"
+                    android:textColor="@android:color/white"
+                    android:textSize="16dp" />
+
+                <Switch
+                    android:id="@+id/wifi_switch_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="19dp"
+                    android:layout_marginRight="8dp"
+                    android:switchMinWidth="58dp"
+                    android:textColor="@android:color/white"
+                    android:theme="@style/SwitchTheme" />
+
+                <TextView
+                    android:id="@+id/wifi_on_text_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="false"
+                    android:layout_marginTop="21dp"
+                    android:layout_toRightOf="@id/wifi_switch_id"
+                    android:text="@string/on_switch"
+                    android:textColor="@android:color/white"
+                    android:textSize="16dp" />
+
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/add_button_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/radio_group_id"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginBottom="32dp"
+                android:width="110dp"
+                android:background="#717171"
+                android:clickable="true"
+                android:hapticFeedbackEnabled="true"
+                android:minHeight="36dp"
+                android:text="@string/add_button_string"
+                android:textColor="@android:color/white" />
+
+        </RelativeLayout>
+
+        <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+        <!--        android:id="@+id/fab"-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_gravity="bottom|end"-->
+        <!--        android:layout_margin="@dimen/fab_margin"-->
+        <!--        app:srcCompat="@android:drawable/ic_dialog_email" />-->
+
+    </RelativeLayout>
+</ScrollView>
