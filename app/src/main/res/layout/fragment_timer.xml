@@ -36,6 +36,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/choose_time_hint"
+            android:inputType="none"
+            android:focusable="false"
+            android:textIsSelectable="true"
             android:textColor="@android:color/white"
             android:textColorHint="#898989"
             android:textColorLink="@android:color/white"
@@ -72,6 +75,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/choose_date_hint"
+            android:inputType="none"
+            android:focusable="false"
+            android:textIsSelectable="true"
             android:textColor="@android:color/white"
             android:textColorHint="#898989"
             android:textColorLink="@android:color/white"
@@ -110,6 +116,9 @@
             android:textColor="@android:color/white"
             android:textColorHint="#898989"
             android:textColorLink="@android:color/white"
+            android:inputType="none"
+            android:focusable="false"
+            android:textIsSelectable="true"
             android:textSize="24sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
