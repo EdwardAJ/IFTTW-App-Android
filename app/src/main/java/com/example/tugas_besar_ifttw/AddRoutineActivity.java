@@ -8,7 +8,6 @@ import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -23,6 +22,10 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 
 import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 
 public class AddRoutineActivity extends AppCompatActivity {
@@ -118,7 +121,6 @@ public class AddRoutineActivity extends AppCompatActivity {
                 // Handle "Send Me A Notification"
             } else {
                 // Handle "Turn Wi-Fi"
-                Log.v("WIFI", "Hello?");
                 AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
                 Intent intent = new Intent(this, NewsReceiver.class);
 
@@ -127,13 +129,14 @@ public class AddRoutineActivity extends AppCompatActivity {
 
                 intent.putExtra("action", "Wifi");
                 intent.putExtra("id", String.valueOf(id));
+                intent.putExtra("newsKeyword", newsKeyword.toString());
+                intent.putExtra("newsTimeFrom", getCurrentDateISO());
+                intent.putExtra("setWifiTo", getSwitchState());
 
                 Log.v("ID: ", String.valueOf(id));
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(this, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                 alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + repeatInterval, repeatInterval, pendingIntent);
-
-                Log.v("TAG", "ehehehe");
 
             }
         }
@@ -164,7 +167,18 @@ public class AddRoutineActivity extends AppCompatActivity {
     }
 
     // Return true (ON) or false (OFF)
-    private boolean getSwitchState() {
-        return this.wifiSwitch.isChecked();
+    private String getSwitchState() {
+        if (this.wifiSwitch.isChecked()) {
+            return "ON";
+        } else {
+            return "OFF";
+        }
+    }
+
+    public String getCurrentDateISO () {
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        df.setTimeZone(tz);
+        return df.format(new Date());
     }
 }
