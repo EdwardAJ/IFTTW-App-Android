@@ -15,8 +15,12 @@
     <string name="news_hint">Type Keyword</string>
     <string name="if_temperature_text">If Temperature</string>
     <string name="send_notif_radio">Send Me A Notification</string>
-    <string name="turn_wifi_radio">Turn Wi-Fi</string>
+    <string name="turn_wifi_radio">Toggle Wi-Fi</string>
     <string name="off_switch">OFF</string>
     <string name="on_switch">ON</string>
     <string name="add_button_string">Add</string>
+    <string name="title_text">Title</string>
+    <string name="title_hint">Type Title</string>
+    <string name="content_text">Content</string>
+    <string name="content_hint">Type Content</string>
 </resources>

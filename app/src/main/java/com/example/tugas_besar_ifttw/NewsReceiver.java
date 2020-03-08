@@ -26,17 +26,17 @@ public class NewsReceiver extends BroadcastReceiver {
     private int totalResults;
     private String action;
     private String id;
-    private String setWifiTo;
     private String newsKeyword;
     private String newsTimeFrom;
+    private WifiManager wifiManager;
 
     @Override
     public void onReceive(final Context context, Intent intent) {
+        wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
         action = intent.getStringExtra("action");
         id = intent.getStringExtra("id");
         newsKeyword = intent.getStringExtra("newsKeyword");
         newsTimeFrom = intent.getStringExtra("newsTimeFrom");
-        setWifiTo = intent.getStringExtra("setWifiTo");
 
         Log.v("Time", newsTimeFrom);
         this.startAPIRequest(context);
@@ -82,9 +82,8 @@ public class NewsReceiver extends BroadcastReceiver {
     }
 
     public void changeWifiState(final Context context) {
-        Toast.makeText(context, "Wifi Status Is Edited!", 5000).show();
-        WifiManager wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
-        if (setWifiTo.equals("ON")) {
+        Toast.makeText(context, "Wifi Status Is Changed!", 5000).show();
+        if (!wifiManager.isWifiEnabled()) {
             wifiManager.setWifiEnabled(true);
             Log.v("State", "TRUE");
         } else {

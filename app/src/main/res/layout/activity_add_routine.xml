@@ -79,7 +79,7 @@
 
             <RadioGroup
                 android:id="@+id/radio_group_id"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="36dp">
@@ -92,6 +92,74 @@
                     android:textColor="@android:color/white"
                     app:buttonTint="@android:color/white" />
 
+                <!-- Title -->
+                <TextView
+                    android:id="@+id/notif_title_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/title_text"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_layout_notif_title_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="8dp"
+
+                    android:layout_marginRight="64dp"
+                    android:theme="@style/TextInputStyle"
+                    app:hintEnabled="false"
+                    app:hintTextAppearance="@style/TextInputHintStyle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_notif_title_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/title_hint"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="#898989"
+                        android:textColorLink="@android:color/white"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Content -->
+                <TextView
+                    android:id="@+id/notif_content_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/content_text"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_layout_notif_content_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="8dp"
+
+                    android:layout_marginRight="64dp"
+                    android:theme="@style/TextInputStyle"
+                    app:hintEnabled="false"
+                    app:hintTextAppearance="@style/TextInputHintStyle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_notif_content_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/content_hint"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="#898989"
+                        android:textColorLink="@android:color/white"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
                 <RadioButton
                     android:id="@+id/wifi_radio_button"
                     android:layout_width="wrap_content"
@@ -102,52 +170,6 @@
                     app:buttonTint="@android:color/white" />
             </RadioGroup>
 
-            <RelativeLayout
-                android:id="@+id/switch_layout_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/radio_group_id"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="-48dp"
-                android:layout_marginRight="32dp"
-                android:layout_toRightOf="@id/radio_group_id"
-                android:clipToPadding="false"
-                android:paddingLeft="96dp">
-
-                <TextView
-                    android:id="@+id/wifi_off_text_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="21dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_toLeftOf="@id/wifi_switch_id"
-                    android:text="@string/off_switch"
-                    android:textColor="@android:color/white"
-                    android:textSize="16dp" />
-
-                <Switch
-                    android:id="@+id/wifi_switch_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="19dp"
-                    android:layout_marginRight="8dp"
-                    android:switchMinWidth="58dp"
-                    android:textColor="@android:color/white"
-                    android:theme="@style/SwitchTheme" />
-
-                <TextView
-                    android:id="@+id/wifi_on_text_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="false"
-                    android:layout_marginTop="21dp"
-                    android:layout_toRightOf="@id/wifi_switch_id"
-                    android:text="@string/on_switch"
-                    android:textColor="@android:color/white"
-                    android:textSize="16dp" />
-
-
-            </RelativeLayout>
 
             <Button
                 android:id="@+id/add_button_id"

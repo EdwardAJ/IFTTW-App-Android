@@ -34,7 +34,6 @@ public class AddRoutineActivity extends AppCompatActivity {
     private ViewPager addRoutinePager;
     private RadioGroup radioGroup;
     private RadioButton selectedAction;
-    private Switch wifiSwitch;
     // tabLayoutPosition: 0 for Timer, 1 for News and 2 for Sensor
     private int tabLayoutPosition = 0;
 
@@ -52,8 +51,7 @@ public class AddRoutineActivity extends AppCompatActivity {
         this.addButton = findViewById(R.id.add_button_id);
         // Radio buttons of then section: "Send Me A Notification" or "Turn Wi-Fi"
         this.radioGroup = findViewById(R.id.radio_group_id);
-        // Switch button of Wi-Fi: On or Off
-        this.wifiSwitch = findViewById(R.id.wifi_switch_id);
+
 
         // Apply fragment from fragment_news.xml and fragment_timer.xml
         AddRoutinePagerAdapter adapter = new AddRoutinePagerAdapter(getSupportFragmentManager());
@@ -131,7 +129,6 @@ public class AddRoutineActivity extends AppCompatActivity {
                 intent.putExtra("id", String.valueOf(id));
                 intent.putExtra("newsKeyword", newsKeyword.toString());
                 intent.putExtra("newsTimeFrom", getCurrentDateISO());
-                intent.putExtra("setWifiTo", getSwitchState());
 
                 Log.v("ID: ", String.valueOf(id));
 
@@ -166,14 +163,6 @@ public class AddRoutineActivity extends AppCompatActivity {
         return true;
     }
 
-    // Return true (ON) or false (OFF)
-    private String getSwitchState() {
-        if (this.wifiSwitch.isChecked()) {
-            return "ON";
-        } else {
-            return "OFF";
-        }
-    }
 
     public String getCurrentDateISO () {
         TimeZone tz = TimeZone.getTimeZone("UTC");
