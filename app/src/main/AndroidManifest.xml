@@ -9,6 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <receiver
+            android:name=".NewsReceiver"
+            android:enabled="true"
+            android:exported="true"
+            >
+        </receiver>
+
+        <service
+            android:name=".NewsIntentService"
+            android:exported="false" />
+
         <activity
             android:name=".AddRoutineActivity"
             android:label="@string/title_activity_add_routine"
@@ -17,6 +28,9 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.tugas_besar_ifttw.MainActivity" />
+            <intent-filter>
+                <action android:name="com.example.tugas_besar_ifttw.sendNewNews"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"

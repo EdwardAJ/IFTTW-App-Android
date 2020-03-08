@@ -1,5 +1,8 @@
 package com.example.tugas_besar_ifttw;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -9,15 +12,17 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
+
+import org.w3c.dom.Text;
 
 
 public class AddRoutineActivity extends AppCompatActivity {
@@ -69,14 +74,10 @@ public class AddRoutineActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
+            public void onTabUnselected(TabLayout.Tab tab) {}
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
     }
 
@@ -92,25 +93,56 @@ public class AddRoutineActivity extends AppCompatActivity {
 
     // Validate: Timer, News and Sensor
     private void handleAddButtonOnClick() {
-        Log.v("POSITION: ", String.valueOf(this.tabLayoutPosition));
-        if (this.tabLayoutPosition == 0) {
-
-        } else if (this.tabLayoutPosition == 1) {
-            this.validateNewsPage();
+        if (!this.isActionInThenSectionValid()) {
+            Snackbar.make(addButton, "Action cannot be empty.", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        } else {
+            switch(this.tabLayoutPosition) {
+                case 0:
+                    break;
+                case 1:
+                    this.validateNewsPage();
+                    break;
+            }
         }
     }
 
     private void validateNewsPage() {
-        TextInputEditText newsKeywordTextInput = findViewById(R.id.text_news_id);
-        CharSequence newsKeyword = newsKeywordTextInput.getText();
+        CharSequence newsKeyword = getNewsKeywordText();
         // If keyword is empty
         if (newsKeyword == null || newsKeyword.toString().isEmpty()) {
-            // Show snackbar
             Snackbar.make(addButton, "TextInput cannot be empty.", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+                        .setAction("Action", null).show();
         } else {
-            this.validateActionInThenSection();
+            if (this.getSelectedActionText().toString().equals("Send Me A Notification")) {
+                // Handle "Send Me A Notification"
+            } else {
+                // Handle "Turn Wi-Fi"
+                Log.v("WIFI", "Hello?");
+                AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                Intent intent = new Intent(this, NewsReceiver.class);
+
+                int repeatInterval = 1000;
+                int id = (int) SystemClock.elapsedRealtime();
+
+                intent.putExtra("action", "Wifi");
+                intent.putExtra("id", String.valueOf(id));
+
+                Log.v("ID: ", String.valueOf(id));
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(this, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + repeatInterval, repeatInterval, pendingIntent);
+
+                Log.v("TAG", "ehehehe");
+
+            }
         }
+    }
+
+    private CharSequence getNewsKeywordText() {
+        TextInputEditText newsKeywordTextInput = findViewById(R.id.text_news_id);
+        CharSequence newsKeyword = newsKeywordTextInput.getText();
+        return newsKeyword;
     }
 
     private void setSelectedActionInThenSection () {
@@ -118,21 +150,21 @@ public class AddRoutineActivity extends AppCompatActivity {
         this.selectedAction = findViewById(selectedId);
     }
 
-    // Handle "Then" values
-    private void validateActionInThenSection() {
+    private CharSequence getSelectedActionText() {
+        return this.selectedAction.getText();
+    }
+
+    // Handle Actions
+    private boolean isActionInThenSectionValid() {
         this.setSelectedActionInThenSection();
         if (this.selectedAction == null) {
-            Snackbar.make(addButton, "Action cannot be empty.", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        } else {
-            // Handle action: Send Me a Notification and Turn Wi-Fi:
-            this.setSelectedActionInThenSection();
-            CharSequence selectedActionText = this.selectedAction.getText();
-            if (selectedActionText.toString().equals("Send Me A Notification")) {
-                // Handle "Send Me A Notification" Action
-            } else {
-                // Handle "Turn Wi-Fi"
-            }
+            return false;
         }
+        return true;
+    }
+
+    // Return true (ON) or false (OFF)
+    private boolean getSwitchState() {
+        return this.wifiSwitch.isChecked();
     }
 }
