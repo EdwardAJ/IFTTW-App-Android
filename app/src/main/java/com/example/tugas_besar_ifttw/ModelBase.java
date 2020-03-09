@@ -3,8 +3,8 @@ package com.example.tugas_besar_ifttw;
 public abstract class ModelBase {
     protected String modelID;
     protected String action;
-    protected String notifContent;
-    protected String notifTitle;
+    protected String notifContent = null;
+    protected String notifTitle = null;
 
     public ModelBase(String _modelID, String _action) {
         this.modelID = _modelID;
@@ -15,4 +15,5 @@ public abstract class ModelBase {
         this.notifContent = _notifContent;
         this.notifTitle = _notifTitle;
     }
+
 }

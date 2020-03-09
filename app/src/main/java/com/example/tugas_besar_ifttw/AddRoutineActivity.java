@@ -45,6 +45,8 @@ public class AddRoutineActivity extends AppCompatActivity {
     // tabLayoutPosition: 0 for Timer, 1 for News and 2 for Sensor
     private int tabLayoutPosition = 0;
 
+    DatabaseHelper database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,7 +147,6 @@ public class AddRoutineActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
         } else {
             Toast.makeText(this, "Service starts now...", Toast.LENGTH_LONG).show();
-
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
             int repeatInterval = 5000; // 5s
             int ID = (int) SystemClock.elapsedRealtime();
@@ -163,12 +164,19 @@ public class AddRoutineActivity extends AppCompatActivity {
             Intent intent = new Intent(this, NewsReceiver.class);
             Gson gson = new Gson();
             String jsonNewsObject = gson.toJson(NewsObject);
-            Log.v("JSON1: ", jsonNewsObject);
             intent.putExtra("NewsObject", jsonNewsObject);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this, ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
             alarmManager.setInexactRepeating
                     (AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + repeatInterval,
                             repeatInterval, pendingIntent);
+
+            database = new DatabaseHelper(this);
+            database.insertData(NewsObject.modelID, NewsObject.action, NewsObject.notifTitle,
+                    NewsObject.notifContent, "NewsAPI", NewsObject.newsKeyword,
+                    null, -1, -1, -1, null,
+                    null, 1);
+
         }
     }
 
