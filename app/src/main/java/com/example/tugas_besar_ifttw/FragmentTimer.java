@@ -3,13 +3,18 @@ package com.example.tugas_besar_ifttw;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,11 +25,12 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
 
-public class FragmentTimer extends Fragment implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+public class FragmentTimer extends Fragment implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener, AdapterView.OnItemSelectedListener {
     View view;
     private boolean isAttachedToRoot = false;
     private DialogFragment timePicker;
     private DialogFragment datePicker;
+    private Context context;
 
     // Constructor
     public FragmentTimer() {
@@ -34,7 +40,23 @@ public class FragmentTimer extends Fragment implements TimePickerDialog.OnTimeSe
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_timer, container, isAttachedToRoot);
+
+        String [] values =
+                {"Everyday","Every Monday","Every Tuesday","Every Wednesday","Every Thursday","Every Friday","Every Saturday","Every Sunday"};
+        Spinner spinner = (Spinner) view.findViewById(R.id.text_repeat_id);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+
         return view;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String text = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
+        Log.v("SPINNER", String.valueOf(text));
     }
 
     @Override
@@ -94,5 +116,22 @@ public class FragmentTimer extends Fragment implements TimePickerDialog.OnTimeSe
                 datePicker.show(getActivity().getSupportFragmentManager(), "date picker");
             }
         });
+
+//        Spinner repeat_array = (Spinner) getView().findViewById(R.id.text_repeat_id);
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.repeats_array, android.R.layout.simple_spinner_item);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        repeat_array.setAdapter(adapter);
+//        repeat_array.setOnItemSelectedListener(this);
+
+//        repeat_array.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v) {
+//            }
+//        });
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
