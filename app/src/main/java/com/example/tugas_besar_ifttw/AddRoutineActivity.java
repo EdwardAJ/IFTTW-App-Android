@@ -11,6 +11,7 @@ import android.os.Bundle;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -22,6 +23,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
@@ -114,7 +117,6 @@ public class AddRoutineActivity extends AppCompatActivity {
                 return;
             }
         }
-
         switch(this.tabLayoutPosition) {
             case 0:
                 break;
@@ -138,40 +140,35 @@ public class AddRoutineActivity extends AppCompatActivity {
 
     private void validateNewsPage() {
         CharSequence newsKeyword = getNewsKeywordText();
-        // If keyword is empty
         if (newsKeyword == null || newsKeyword.toString().isEmpty()) {
             Snackbar.make(addButton, "TextInput cannot be empty.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
         } else {
+            Toast.makeText(this, "Service starts now...", Toast.LENGTH_LONG).show();
+
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-            Intent intent = new Intent(this, NewsReceiver.class);
-            int repeatInterval = 10000;
-            int id = (int) SystemClock.elapsedRealtime();
+            int repeatInterval = 5000; // 5s
+            int ID = (int) SystemClock.elapsedRealtime();
 
-            intent.putExtra("id", String.valueOf(id));
-            intent.putExtra("newsKeyword", newsKeyword.toString());
-            intent.putExtra("newsTimeFrom", getCurrentDateISO());
-
+            ModelNews NewsObject = new ModelNews(String.valueOf(ID), "Notification", newsKeyword.toString(), getCurrentDateISO());
             if (this.getSelectedActionText().equals("Send Me A Notification")) {
-                // Handle "Send Me A Notification"
-                intent.putExtra("action", "Notification");
-                intent.putExtra("notifTitle", this.notifTitle.getText().toString());
-                intent.putExtra("notifContent", this.notifContent.getText().toString());
+                NewsObject.setNotifAttributes(this.notifTitle.getText().toString(), this.notifContent.getText().toString());
                 this.createNotificationChannel();
             } else {
-                Log.v("WIFI: ", "WIFI?");
-                // Handle "Turn Wi-Fi"
-                intent.putExtra("action", "Wifi");
+                NewsObject.action = "Wifi";
             }
 
-            Log.v("ID: ", String.valueOf(id));
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + repeatInterval, repeatInterval, pendingIntent);
+            Log.v("ID: ", NewsObject.modelID);
 
-            // Remove old alarm
-            alarmManager.cancel(pendingIntent);
-            // Set new alarm
-            alarmManager.set(AlarmManager.RTC_WAKEUP, repeatInterval, pendingIntent);
+            Intent intent = new Intent(this, NewsReceiver.class);
+            Gson gson = new Gson();
+            String jsonNewsObject = gson.toJson(NewsObject);
+            Log.v("JSON1: ", jsonNewsObject);
+            intent.putExtra("NewsObject", jsonNewsObject);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, ID, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            alarmManager.setInexactRepeating
+                    (AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + repeatInterval,
+                            repeatInterval, pendingIntent);
         }
     }
 
