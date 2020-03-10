@@ -8,12 +8,14 @@
     <string name="date_text">Date (optional)</string>
     <string name="choose_date_hint">Choose Date</string>
     <string name="choose_time_hint">Choose Time</string>
+    <string name="choose_lumen_hint">Choose Luminosity</string>
     <string name="repeat_text">Repeat</string>
     <string name="choose_frequency_hint">Choose Frequency</string>
     <string name="then_text">Then:</string>
     <string name="if_news_text">If Exists New News with Keyword =</string>
     <string name="news_hint">Type Keyword</string>
     <string name="if_temperature_text">If Temperature</string>
+    <string name="if_lumen_text">If Luminosity</string>
     <string name="send_notif_radio">Send Me A Notification</string>
     <string name="turn_wifi_radio">Toggle Wi-Fi</string>
     <string name="off_switch">OFF</string>
@@ -23,4 +25,6 @@
     <string name="title_hint">Type Title</string>
     <string name="content_text">Content</string>
     <string name="content_hint">Type Content</string>
+    <string name="less_than">Less Than</string>
+    <string name="more_or_equal">More Than or Equals To</string>
 </resources>

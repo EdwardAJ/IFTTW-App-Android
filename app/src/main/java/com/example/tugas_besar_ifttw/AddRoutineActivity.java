@@ -69,6 +69,7 @@ public class AddRoutineActivity extends AppCompatActivity {
         AddRoutinePagerAdapter adapter = new AddRoutinePagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new FragmentTimer(), "Timer");
         adapter.addFragment(new FragmentNews(), "News");
+        adapter.addFragment(new FragmentSensor(), "Sensor");
 
         this.addRoutinePager.setAdapter(adapter);
         this.tabLayout.setupWithViewPager(addRoutinePager);
