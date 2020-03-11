@@ -5,33 +5,15 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
+import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
+import android.widget.Switch;
 
 import com.google.gson.Gson;
 
 import static android.content.Context.ALARM_SERVICE;
 
 public class ControllerNewsRoutine {
-//    private static ControllerNewsRoutine instance;
-//
-//    public static ControllerNewsRoutine getInstance() {
-//        return instance;
-//    }
-//
-//    public static void init(Context context) {
-//        if (instance == null) {
-//            instance = new ControllerNewsRoutine(context);
-//        }
-//    }
-//
-//    private final Context context;
-//
-//    private ControllerNewsRoutine(Context context) {
-//        this.context = context;
-//    }
-//
-//    public Context getContext() {
-//        return context;
-//    }
 
     public static void startNewsService (Context context, ModelNews NewsObject, int repeatInterval, int ID) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);

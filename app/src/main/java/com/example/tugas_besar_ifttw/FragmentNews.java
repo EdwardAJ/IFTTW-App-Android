@@ -62,12 +62,7 @@ public class FragmentNews extends FragmentBaseAddRoutine {
                 NewsObject.setNotifAttributes("Wifi", "Wifi Toggled");
             }
             int repeatInterval = 5000; // 5s
-//            boolean isActive = isPendingIntentRegistered(getActivity(), NewsObject, ID);
-//            Log.v("isActive??? ", Boolean.toString(isActive) );
-            startNewsService(getActivity(), NewsObject, repeatInterval, ID);
-
-//            boolean isActive2 = isPendingIntentRegistered(getActivity(), NewsObject, ID);
-//            Log.v("isActive2??? ", Boolean.toString(isActive2) );
+            startNewsService(getActivity().getApplicationContext(), NewsObject, repeatInterval, ID);
             saveNewsToDatabase(NewsObject);
         }
     }
