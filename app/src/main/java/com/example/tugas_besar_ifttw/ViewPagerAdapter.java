@@ -3,15 +3,16 @@ package com.example.tugas_besar_ifttw;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 
-public class AddRoutinePagerAdapter extends FragmentPagerAdapter {
+public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private final ArrayList<Fragment> fragmentList = new ArrayList<>();
     private final ArrayList<String> fragmentListTitles = new ArrayList<>();
 
-    public AddRoutinePagerAdapter(FragmentManager fm) {
+    public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 

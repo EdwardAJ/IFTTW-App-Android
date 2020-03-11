@@ -55,140 +55,140 @@
 
 
         <!--    <include layout="@layout/content_then_add_routine" />-->
-        <RelativeLayout
-            android:id="@+id/relative_layout_of_then_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/viewPager"
-            android:layout_marginTop="16dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:context=".AddRoutineActivity"
-            tools:showIn="@layout/activity_add_routine">
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/relative_layout_of_then_id"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/viewPager"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+<!--            tools:context=".AddRoutineActivity"-->
+<!--            tools:showIn="@layout/activity_add_routine">-->
 
 
-            <TextView
-                android:id="@+id/text_view_then_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:text="@string/then_text"
-                android:textColor="@android:color/white"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+<!--            <TextView-->
+<!--                android:id="@+id/text_view_then_id"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="16dp"-->
+<!--                android:text="@string/then_text"-->
+<!--                android:textColor="@android:color/white"-->
+<!--                android:textSize="16dp"-->
+<!--                android:textStyle="bold" />-->
 
 
-            <RadioGroup
-                android:id="@+id/radio_group_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="36dp">
+<!--            <RadioGroup-->
+<!--                android:id="@+id/radio_group_id"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="12dp"-->
+<!--                android:layout_marginTop="36dp">-->
 
-                <RadioButton
-                    android:id="@+id/notif_radio_button_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/send_notif_radio"
-                    android:textColor="@android:color/white"
-                    app:buttonTint="@android:color/white" />
+<!--                <RadioButton-->
+<!--                    android:id="@+id/notif_radio_button_id"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/send_notif_radio"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    app:buttonTint="@android:color/white" />-->
 
-                <!-- Title -->
-                <TextView
-                    android:id="@+id/notif_title_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/title_text"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp" />
+<!--                &lt;!&ndash; Title &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/notif_title_id"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="4dp"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    android:text="@string/title_text"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    android:textSize="16sp" />-->
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/text_input_layout_notif_title_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginTop="8dp"
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/text_input_layout_notif_title_id"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="0dp"-->
+<!--                    android:layout_marginTop="8dp"-->
 
-                    android:layout_marginRight="64dp"
-                    android:theme="@style/TextInputStyle"
-                    app:hintEnabled="false"
-                    app:hintTextAppearance="@style/TextInputHintStyle">
+<!--                    android:layout_marginRight="64dp"-->
+<!--                    android:theme="@style/TextInputStyle"-->
+<!--                    app:hintEnabled="false"-->
+<!--                    app:hintTextAppearance="@style/TextInputHintStyle">-->
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/text_notif_title_id"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/title_hint"
-                        android:textColor="@android:color/white"
-                        android:textColorHint="#898989"
-                        android:textColorLink="@android:color/white"
-                        android:textSize="16sp" />
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:id="@+id/text_notif_title_id"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:hint="@string/title_hint"-->
+<!--                        android:textColor="@android:color/white"-->
+<!--                        android:textColorHint="#898989"-->
+<!--                        android:textColorLink="@android:color/white"-->
+<!--                        android:textSize="16sp" />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
-                <!-- Content -->
-                <TextView
-                    android:id="@+id/notif_content_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/content_text"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp" />
+<!--                &lt;!&ndash; Content &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/notif_content_id"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="4dp"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    android:text="@string/content_text"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    android:textSize="16sp" />-->
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/text_input_layout_notif_content_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginTop="8dp"
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/text_input_layout_notif_content_id"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="0dp"-->
+<!--                    android:layout_marginTop="8dp"-->
 
-                    android:layout_marginRight="64dp"
-                    android:theme="@style/TextInputStyle"
-                    app:hintEnabled="false"
-                    app:hintTextAppearance="@style/TextInputHintStyle">
+<!--                    android:layout_marginRight="64dp"-->
+<!--                    android:theme="@style/TextInputStyle"-->
+<!--                    app:hintEnabled="false"-->
+<!--                    app:hintTextAppearance="@style/TextInputHintStyle">-->
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/text_notif_content_id"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/content_hint"
-                        android:textColor="@android:color/white"
-                        android:textColorHint="#898989"
-                        android:textColorLink="@android:color/white"
-                        android:textSize="14sp" />
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:id="@+id/text_notif_content_id"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:hint="@string/content_hint"-->
+<!--                        android:textColor="@android:color/white"-->
+<!--                        android:textColorHint="#898989"-->
+<!--                        android:textColorLink="@android:color/white"-->
+<!--                        android:textSize="14sp" />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
-                <RadioButton
-                    android:id="@+id/wifi_radio_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/turn_wifi_radio"
-                    android:textColor="@android:color/white"
-                    app:buttonTint="@android:color/white" />
-            </RadioGroup>
+<!--                <RadioButton-->
+<!--                    android:id="@+id/wifi_radio_button"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    android:text="@string/turn_wifi_radio"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    app:buttonTint="@android:color/white" />-->
+<!--            </RadioGroup>-->
 
 
-            <Button
-                android:id="@+id/add_button_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/radio_group_id"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="32dp"
-                android:layout_marginRight="32dp"
-                android:layout_marginBottom="32dp"
-                android:width="110dp"
-                android:background="#717171"
-                android:clickable="true"
-                android:hapticFeedbackEnabled="true"
-                android:minHeight="36dp"
-                android:text="@string/add_button_string"
-                android:textColor="@android:color/white" />
+<!--            <Button-->
+<!--                android:id="@+id/add_button_id"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@id/radio_group_id"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:layout_marginTop="32dp"-->
+<!--                android:layout_marginRight="32dp"-->
+<!--                android:layout_marginBottom="32dp"-->
+<!--                android:width="110dp"-->
+<!--                android:background="#717171"-->
+<!--                android:clickable="true"-->
+<!--                android:hapticFeedbackEnabled="true"-->
+<!--                android:minHeight="36dp"-->
+<!--                android:text="@string/add_button_string"-->
+<!--                android:textColor="@android:color/white" />-->
 
-        </RelativeLayout>
+<!--        </RelativeLayout>-->
 
         <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
         <!--        android:id="@+id/fab"-->

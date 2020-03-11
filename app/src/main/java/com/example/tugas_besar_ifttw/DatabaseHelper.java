@@ -22,7 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_NAME + "(ID TEXT PRIMARY KEY, ACTION_NAME TEXT, " +
                 "NOTIF_TITLE TEXT, NOTIF_CONTENT TEXT, CONDITION_NAME TEXT, " +
-                "NEWS_KEYWORD TEXT, SENSOR_COMPARATOR TEXT, SENSOR_VALUE REAL, " +
+                "NEWS_KEYWORD TEXT, NEWS_TIME_FROM TEXT, SENSOR_COMPARATOR TEXT, SENSOR_VALUE REAL, " +
                 "TIMER_HOUR INTEGER, TIMER_MINUTE INTEGER, TIMER_DATE TEXT, " +
                 "TIMER_REPEAT TEXT, IS_ACTIVE INTEGER)" );
     }
@@ -34,25 +34,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void insertData(String id, String actionName, String notifTitle, String notifContent,
-                              String condName, String newsKeyword, String sensorCompare,
+                              String condName, String newsKeyword, String newsTimeFrom, String sensorCompare,
                               double sensorValue, int timerHour, int timerMinute, String timerDate,
                               String timerRepeat, int isActive) {
         open();
         String insertStr = ("INSERT INTO " + TABLE_NAME +
-                " (ID, ACTION_NAME, NOTIF_TITLE, NOTIF_CONTENT, CONDITION_NAME, NEWS_KEYWORD, "
+                " (ID, ACTION_NAME, NOTIF_TITLE, NOTIF_CONTENT, CONDITION_NAME, NEWS_KEYWORD, NEWS_TIME_FROM, "
                 + "SENSOR_COMPARATOR, SENSOR_VALUE, TIMER_HOUR, TIMER_MINUTE, TIMER_DATE, "
                 + "TIMER_REPEAT, IS_ACTIVE)" + "VALUES ("
                 +"'" + id + "', '" + actionName + "', '" + notifTitle + "', '" + notifContent + "', '" + condName
-                + "', '" + newsKeyword + "', '" + sensorCompare + "', " + sensorValue + ", " + timerHour
-                + ", " + timerMinute + ", '" + timerDate + "', '" + timerRepeat + "', " + isActive +
+                + "', '" + newsKeyword + "', '" + newsTimeFrom + "', '" + sensorCompare + "', " + sensorValue +
+                ", " + timerHour + ", " + timerMinute + ", '" + timerDate + "', '" + timerRepeat + "', " + isActive +
                 ")");
         Log.v("INSERT", insertStr);
         database.execSQL(insertStr);
     }
 
-    public Cursor getAllData() {
+
+    public Cursor getAllDataWithIsActiveCondition(int isActive) {
         open();
-        Cursor result = database.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+        Cursor result = database.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE IS_ACTIVE = " + isActive, null);
         return result;
     }
 

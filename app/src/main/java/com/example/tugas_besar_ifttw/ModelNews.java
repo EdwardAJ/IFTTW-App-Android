@@ -1,6 +1,5 @@
 package com.example.tugas_besar_ifttw;
 
-import android.os.Parcel;
 
 public class ModelNews extends ModelBase {
 

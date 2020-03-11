@@ -23,7 +23,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayoutMain"
+        android:id="@+id/mainTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="?attr/actionBarSize"
@@ -40,102 +40,102 @@
         android:id="@+id/svContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tabLayoutMain"
+        android:layout_below="@id/mainTabLayout"
         android:layout_alignParentTop="false"
         android:layout_alignParentRight="false">
 
-        <!--        <com.example.tugas_besar_ifttw.WrapContentViewPager-->
-        <!--            android:id="@+id/mainViewPager"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_below="@id/tabLayout" />-->
-
-        <RelativeLayout
-            android:id="@+id/relative_layout_active_fragment_id"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".AddRoutineActivity">
-
-            <RelativeLayout
-                android:id="@+id/rl1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#4D4D4D"
-                tools:context=".AddRoutineActivity">
-
-                <TextView
-                    android:id="@+id/text_view_action_id"
-                    android:layout_width="wrap_content"
+                <com.example.tugas_besar_ifttw.WrapContentViewPager
+                    android:id="@+id/mainViewPager"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/notification"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:layout_below="@id/mainTabLayout" />
 
-                <Switch
-                    android:id="@+id/routine_switch_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_toRightOf="@id/text_view_action_id"
-                    android:switchMinWidth="56dp"
-                    android:theme="@style/SwitchTheme" />
+<!--        <RelativeLayout-->
+<!--            android:id="@+id/relative_layout_active_fragment_id"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            tools:context=".AddRoutineActivity">-->
 
-                <TextView
-                    android:id="@+id/text_view_notif_title_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/text_view_action_id"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/notification"
-                    android:textColor="@android:color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/rl1"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="#4D4D4D"-->
+<!--                tools:context=".AddRoutineActivity">-->
 
-                <TextView
-                    android:id="@+id/text_view_notif_content_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/text_view_notif_title_id"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="4dp"
-                    android:text="@string/notification"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/text_view_action_id"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="16dp"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:text="@string/notification"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textStyle="bold" />-->
 
-                <TextView
-                    android:id="@+id/text_view_condition_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/text_view_notif_content_id"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="20dp"
-                    android:text="@string/notification"
-                    android:textColor="@android:color/white"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+<!--                <Switch-->
+<!--                    android:id="@+id/routine_switch_id"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignParentRight="true"-->
+<!--                    android:layout_marginTop="18dp"-->
+<!--                    android:layout_marginRight="16dp"-->
+<!--                    android:layout_toRightOf="@id/text_view_action_id"-->
+<!--                    android:switchMinWidth="56dp"-->
+<!--                    android:theme="@style/SwitchTheme" />-->
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@id/text_view_condition_id"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="false"
-                    android:layout_marginRight="20dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:drawableEnd="@drawable/ic_delete_icon_24dp"
-                    android:minWidth="24dp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/text_view_notif_title_id"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@id/text_view_action_id"-->
+<!--                    android:layout_marginLeft="16dp"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:text="@string/notification"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    android:textSize="20sp"-->
+<!--                    android:textStyle="bold" />-->
 
-            </RelativeLayout>
+<!--                <TextView-->
+<!--                    android:id="@+id/text_view_notif_content_id"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/text_view_notif_title_id"-->
+<!--                    android:layout_marginLeft="16dp"-->
+<!--                    android:layout_marginTop="4dp"-->
+<!--                    android:text="@string/notification"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    android:textSize="14sp" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/text_view_condition_id"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/text_view_notif_content_id"-->
+<!--                    android:layout_marginLeft="16dp"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    android:layout_marginBottom="20dp"-->
+<!--                    android:text="@string/notification"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--                <Button-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignBaseline="@id/text_view_condition_id"-->
+<!--                    android:layout_alignParentRight="true"-->
+<!--                    android:layout_alignParentBottom="false"-->
+<!--                    android:layout_marginRight="20dp"-->
+<!--                    android:background="?android:attr/selectableItemBackground"-->
+<!--                    android:drawableEnd="@drawable/ic_delete_icon_24dp"-->
+<!--                    android:minWidth="24dp" />-->
+
+<!--            </RelativeLayout>-->
 
 
-        </RelativeLayout>
+<!--        </RelativeLayout>-->
     </ScrollView>
 
 

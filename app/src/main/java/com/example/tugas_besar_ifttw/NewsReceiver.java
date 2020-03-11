@@ -86,17 +86,11 @@ public class NewsReceiver extends BroadcastReceiver {
 
     public void changeWifiState(final Context context) {
         Toast.makeText(context, "Wifi Status Is Changed!", 5000).show();
-        if (!wifiManager.isWifiEnabled()) {
-            wifiManager.setWifiEnabled(true);
-            Log.v("State", "TRUE");
-        } else {
-            Log.v("State", "FALSE");
-            wifiManager.setWifiEnabled(false);
-        }
+        wifiManager.setWifiEnabled(!wifiManager.isWifiEnabled());
     }
 
     private void deliverNotification(Context context) {
-        Intent contentIntent = new Intent(context, AddRoutineActivity.class);
+        Intent contentIntent = new Intent(context, MainActivity.class);
 
         PendingIntent contentPendingIntent = PendingIntent.getActivity
                 (context, Integer.parseInt(ReceivedNewsObject.modelID), contentIntent, PendingIntent

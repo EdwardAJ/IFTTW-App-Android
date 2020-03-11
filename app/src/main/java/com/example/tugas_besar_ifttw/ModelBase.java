@@ -1,6 +1,6 @@
 package com.example.tugas_besar_ifttw;
 
-public abstract class ModelBase {
+public class ModelBase {
     protected String modelID;
     protected String action;
     protected String notifContent = null;
@@ -11,7 +11,7 @@ public abstract class ModelBase {
         this.action = _action;
     }
 
-    public void setNotifAttributes(String _notifContent, String _notifTitle) {
+    public void setNotifAttributes(String _notifTitle, String _notifContent) {
         this.notifContent = _notifContent;
         this.notifTitle = _notifTitle;
     }
