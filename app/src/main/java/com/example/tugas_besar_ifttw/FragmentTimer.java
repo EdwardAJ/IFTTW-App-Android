@@ -1,7 +1,6 @@
 package com.example.tugas_besar_ifttw;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -30,7 +29,6 @@ public class FragmentTimer extends Fragment implements TimePickerDialog.OnTimeSe
     private boolean isAttachedToRoot = false;
     private DialogFragment timePicker;
     private DialogFragment datePicker;
-    private Context context;
 
     // Constructor
     public FragmentTimer() {
