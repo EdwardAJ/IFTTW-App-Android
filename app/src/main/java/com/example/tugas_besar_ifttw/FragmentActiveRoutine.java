@@ -14,11 +14,6 @@ import android.widget.RelativeLayout;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.tugas_besar_ifttw.ControllerNewsRoutine;
-
-import static com.example.tugas_besar_ifttw.ControllerNewsRoutine.cancelPendingIntent;
-import static com.example.tugas_besar_ifttw.ControllerNewsRoutine.isPendingIntentRegistered;
-
 public class FragmentActiveRoutine extends Fragment {
     View view;
     RelativeLayout fragmentRelativeLayout;
@@ -44,7 +39,6 @@ public class FragmentActiveRoutine extends Fragment {
                 Log.v("ID: ", result.getString(0));
                 String condName = null;
                 String condValue = null;
-                boolean isActive = false;
 
                 // Construct baseObject
                 ModelBase baseObject = new ModelBase(result.getString(0),
@@ -59,13 +53,8 @@ public class FragmentActiveRoutine extends Fragment {
                     ModelNews NewsObject = new ModelNews(baseObject.modelID, baseObject.action, condName, condValue);
                     NewsObject.setNotifAttributes(baseObject.notifTitle, baseObject.notifContent);
 
-                    // cancelPendingIntent(getActivity().getApplicationContext(), NewsObject, Integer.parseInt(NewsObject.modelID));
-                    isActive = isPendingIntentRegistered(getActivity().getApplicationContext(), NewsObject, Integer.parseInt(NewsObject.modelID));
-                    Log.v("isActive? ", Boolean.toString(isActive));
-
-                    if (isActive) {
                         // Construct new Relative Layout
-                        ViewRoutine routine = new ViewRoutine(getActivity(), baseObject, condName, condValue);
+                        ViewRoutine routine = new ViewRoutine(getActivity(), baseObject, condName, condValue, isActive);
                         routine.addDeleteButtonNewsListener(getActivity().getApplicationContext(), NewsObject, Integer.parseInt(NewsObject.modelID));
                         routine.addSwitchNewsListener(getActivity().getApplicationContext(), NewsObject, 5000, Integer.parseInt(NewsObject.modelID));
                         routine.constructView();
@@ -74,11 +63,19 @@ public class FragmentActiveRoutine extends Fragment {
                         }
                         fragmentRelativeLayout.addView(routine.getRelativeLayout());
                         prevRoutineID = result.getString(0);
-                    }
                 }
 
             }
         }
         return view;
     }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            getFragmentManager().beginTransaction().detach(this).attach(this).commit();
+        }
+    }
+
 }

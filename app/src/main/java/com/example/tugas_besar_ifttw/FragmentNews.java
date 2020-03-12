@@ -64,6 +64,7 @@ public class FragmentNews extends FragmentBaseAddRoutine {
             int repeatInterval = 5000; // 5s
             startNewsService(getActivity().getApplicationContext(), NewsObject, repeatInterval, ID);
             saveNewsToDatabase(NewsObject);
+            getActivity().finish();
         }
     }
 

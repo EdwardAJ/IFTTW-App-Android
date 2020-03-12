@@ -2,7 +2,6 @@ package com.example.tugas_besar_ifttw;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
@@ -35,4 +34,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         fragmentList.add(fragment);
         fragmentListTitles.add(title);
     }
+    public void replaceFragment(Fragment fragment, String title, int position) {
+        fragmentList.set(position, fragment);
+        fragmentListTitles.set(position, title);
+    }
+
 }

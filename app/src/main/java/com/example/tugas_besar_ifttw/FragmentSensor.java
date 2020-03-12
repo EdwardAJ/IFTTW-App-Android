@@ -1,85 +1,81 @@
 package com.example.tugas_besar_ifttw;
 
-import android.app.Service;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class FragmentSensor extends Fragment {
+import static com.example.tugas_besar_ifttw.ControllerSensorRoutine.startSensorService;
+
+public class FragmentSensor extends FragmentBaseAddRoutine {
+
     View view;
-    private boolean isAttachedToRoot = false;
-
-//    SensorManager sensorManager;
-//    Sensor sensor;
-//
-//    TextInputEditText tiet_sensor;
-
-    // Constructor
-    public FragmentSensor() {
-
-    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View childOnCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_sensor, container, isAttachedToRoot);
-//
-//            sensorManager = (SensorManager) getSystemService(Service.SENSOR_SERVICE);
-//            sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-
         return view;
     }
 
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//
-//        sensorManager = (SensorManager) getActivity().getSystemService(Service.SENSOR_SERVICE);
-//        sensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
-//
-////        tiet_sensor = (TextInputEditText) getView().findViewById(R.id.text_choose_luminosity_id);
-////        tiet_sensor.setOnClickListener(new View.OnClickListener(){
-////            @Override
-////            public void onClick(View view) {
-//////                instantiateDatePicker();
-////                tiet_sensor.show(getActivity().getSupportFragmentManager(), "lumen picker");
-////            }
-////        });
-//    }
+    @Override
+    protected void childAddButtonListener() {
+        this.addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v("CLICK", "CLICKEDDD");
+                handleAddButtonOnClick();
+            }
+        });
+    }
 
-//    @Override
-//    public void onPause() {
-//        super.onPause();
-//        sensorManager.unregisterListener(this);
-//    }
-//
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        sensorManager.registerListener(this, sensor, sensorManager.SENSOR_DELAY_NORMAL);
-//    }
-//
-//    @Override
-//    public void onSensorChanged(SensorEvent event) {
-//        if(event.sensor.getType() == Sensor.TYPE_LIGHT){
-//            Log.v("Sensor", String.valueOf(event));
-//        }
-//    }
-//
-//    @Override
-//    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-//
-//    }
+    protected String getLuminosityString() {
+        TextInputEditText luminosity = getView().findViewById(R.id.text_input_layout_choose_lumen_id);
+        return luminosity.getText().toString();
+    }
+    protected double getLuminosityDoubleValue() {
+        return Double.parseDouble(getLuminosityString());
+    }
 
+    protected void handleAddButtonOnClick() {
+        this.isActionInThenSectionValid();
+        this.validateSensor();
+    }
+
+    protected void validateSensor() {
+        if (getLuminosityString().isEmpty()) {
+            Snackbar.make(addButton, "Luminosity cannot be empty.", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        } else {
+            Toast.makeText(getActivity(), "Service starts now...", Toast.LENGTH_LONG).show();
+            int ID = (int) SystemClock.elapsedRealtime();
+            ModelSensor SensorObject = new ModelSensor(String.valueOf(ID), "Notification",getLuminosityDoubleValue(), "MORE_THAN");
+            if (this.getSelectedActionText().equals("Send Me A Notification")) {
+                SensorObject.setNotifAttributes(this.notifTitle.getText().toString(), this.notifContent.getText().toString());
+                this.createNotificationChannel();
+            } else {
+                SensorObject.action = "Wifi";
+                SensorObject.setNotifAttributes("Wifi", "Wifi Toggled");
+            }
+
+            startSensorService(getActivity().getApplicationContext(), SensorObject);
+            saveSensorToDatabase(SensorObject);
+            getActivity().finish();
+        }
+    }
+
+    protected void saveSensorToDatabase(ModelSensor sensorObject) {
+        database = new DatabaseHelper(getActivity());
+        database.insertData(sensorObject.modelID, sensorObject.action, sensorObject.notifTitle,
+                sensorObject.notifContent, "Sensor", null,
+                null, "MORE_THAN", getLuminosityDoubleValue(), -1, -1, null,
+                null, 1);
+    }
 }

@@ -1,6 +1,8 @@
 package com.example.tugas_besar_ifttw;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -10,9 +12,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
 import static com.example.tugas_besar_ifttw.ControllerNewsRoutine.cancelPendingIntent;
 import static com.example.tugas_besar_ifttw.ControllerNewsRoutine.startNewsService;
-import com.example.tugas_besar_ifttw.DatabaseHelper;
 
 public class ViewRoutine  {
     private RelativeLayout relativeLayout;
@@ -28,7 +31,7 @@ public class ViewRoutine  {
     DatabaseHelper database;
 
     public ViewRoutine(Context context, ModelBase ModelParam,
-                       String _condName, String _condValue) {
+                       String _condName, String _condValue, int isActive) {
 
         this.condName = _condName;
         this.condValue = _condValue;
@@ -43,10 +46,13 @@ public class ViewRoutine  {
         content = inf.inflate(R.layout.fragment_active_routine_content,null);
 
         routineSwitch = content.findViewById(R.id.routine_switch_id);
-        routineSwitch.setChecked(true);
+        if (isActive == 0) {
+            routineSwitch.setChecked(false);
+        } else {
+            routineSwitch.setChecked(true);
+        }
 
         deleteButton = content.findViewById(R.id.delete_button_id);
-
         database = new DatabaseHelper(context);
     }
 
@@ -74,9 +80,15 @@ public class ViewRoutine  {
                 Toast.makeText(context, "Deleting Routine...", Toast.LENGTH_SHORT).show();
                 cancelPendingIntent(context, NewsObject, ID);
                 database.deleteData(String.valueOf(ID));
+                Intent intent = new Intent(context, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+
+//                ((Activity) context).getFragmentManager().beginTransaction().detach((Fragment) context).attach(context).commit();
             }
         });
     }
+
 
     public void constructView() {
         RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(

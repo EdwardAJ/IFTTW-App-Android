@@ -19,9 +19,6 @@ public class AddRoutineActivity extends AppCompatActivity {
     private ViewPager addRoutinePager;
     public Context context;
 
-    public AddRoutineActivity() {
-        this.context = this;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +33,9 @@ public class AddRoutineActivity extends AppCompatActivity {
         this.addRoutinePager = findViewById(R.id.viewPager);
 
         // Apply fragment from fragment_news.xml and fragment_timer.xml
-        AddRoutinePagerAdapter adapter = new AddRoutinePagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FragmentTimer(), "PEPEGO");
-//        adapter.addFragment(new FragmentNews(), "News");
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new FragmentTimer(), "Timer");
+        adapter.addFragment(new FragmentNews(), "News");
         adapter.addFragment(new FragmentSensor(), "Sensor");
 
         this.addRoutinePager.setAdapter(adapter);

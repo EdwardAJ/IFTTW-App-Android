@@ -21,7 +21,7 @@
         </receiver>
 
         <service
-            android:name=".NewsIntentService"
+            android:name=".ServiceLightSensor"
             android:exported="false" />
 
         <activity
