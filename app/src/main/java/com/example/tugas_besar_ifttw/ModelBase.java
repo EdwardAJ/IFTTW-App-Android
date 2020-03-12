@@ -16,4 +16,7 @@ public class ModelBase {
         this.notifTitle = _notifTitle;
     }
 
+    public void setAction(String action) {
+        this.action = action;
+    }
 }
