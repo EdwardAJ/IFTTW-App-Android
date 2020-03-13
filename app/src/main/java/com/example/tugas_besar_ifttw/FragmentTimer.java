@@ -19,7 +19,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -34,6 +33,7 @@ public class FragmentTimer extends FragmentBaseAddRoutine implements TimePickerD
     private DialogFragment timePicker;
     private DialogFragment datePicker;
     private String selected_spinner;
+    private Calendar c;
     // Constructor
     public FragmentTimer() {
     }
@@ -59,13 +59,12 @@ public class FragmentTimer extends FragmentBaseAddRoutine implements TimePickerD
         this.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v("CLICK", "CLICKEDDD");
                 handleAddButtonOnClick();
             }
         });
     }
 
-    // Validate
+    // ValidatePSP
     protected void handleAddButtonOnClick() {
         this.isActionInThenSectionValid();
         this.validateTimerPage();
@@ -80,7 +79,7 @@ public class FragmentTimer extends FragmentBaseAddRoutine implements TimePickerD
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        Calendar c = Calendar.getInstance();
+        c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, hourOfDay);
         c.set(Calendar.MINUTE, minute);
         c.set(Calendar.SECOND, 0);
@@ -98,7 +97,7 @@ public class FragmentTimer extends FragmentBaseAddRoutine implements TimePickerD
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        Calendar c = Calendar.getInstance();
+        c = Calendar.getInstance();
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -151,14 +150,16 @@ public class FragmentTimer extends FragmentBaseAddRoutine implements TimePickerD
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
+        Log.v("JNCK", "Jancok ONS" );
     }
 
     private void validateTimerPage() {
-        TextInputEditText tiet_time = getView().findViewById(R.id.text_choose_time_id);
-        String[] separated_time_arr = tiet_time.getText().toString().split("/");
 
-        String tiet_date = getView().findViewById(R.id.text_date_id).toString();
+        TextInputEditText tiet_time = getView().findViewById(R.id.text_choose_time_id);
+        String[] separated_time_arr = tiet_time.getText().toString().split(":");
+
+        TextInputEditText tiet_date = getView().findViewById(R.id.text_date_id);
+        String string_tiet_date = tiet_date.getText().toString();
 
         if (separated_time_arr[0] == null || separated_time_arr[0] == null) {
             Snackbar.make(addButton, "Time input cannot be empty.", Snackbar.LENGTH_LONG)
@@ -166,9 +167,16 @@ public class FragmentTimer extends FragmentBaseAddRoutine implements TimePickerD
         } else {
             Toast.makeText(getActivity(), "Service starts now...", Toast.LENGTH_LONG).show();
             int ID = (int) SystemClock.elapsedRealtime();
-            ModelAlarm AlarmObj = new ModelAlarm(String.valueOf(ID),"Notification",Integer.parseInt(separated_time_arr[0]),Integer.parseInt(separated_time_arr[1]),tiet_date,selected_spinner);
+
+            Log.v("JANCOK", String.valueOf(Integer.parseInt(separated_time_arr[0])));
+            Log.v("JANCOK", String.valueOf(Integer.parseInt(separated_time_arr[1])));
+            Log.v("JANCOK", string_tiet_date);
+            Log.v("JANCOK", "TYTD");
+            Log.v("JANCOK", selected_spinner);
+            ModelAlarm AlarmObj = new ModelAlarm(String.valueOf(ID),"Notification",Integer.parseInt(separated_time_arr[0]),Integer.parseInt(separated_time_arr[1]),string_tiet_date,selected_spinner);
             if (this.getSelectedActionText().equals("Send Me A Notification")) {
                 AlarmObj.setNotifAttributes(this.notifTitle.getText().toString(), this.notifContent.getText().toString());
+<<<<<<< HEAD
                 this.createNotificationChannel();
             } else if (this.getSelectedActionText().equals("Turn Wifi On")){
                 AlarmObj.action = "Wifi On";
@@ -179,6 +187,23 @@ public class FragmentTimer extends FragmentBaseAddRoutine implements TimePickerD
             }
             int repeatInterval = 5000; // 5s
             startAlarmService(getActivity(), AlarmObj, repeatInterval, ID);
+=======
+//                this.createNotificationChannel();
+            } else {
+                AlarmObj.setAction("Wifi");
+                AlarmObj.setNotifAttributes("Wifi", "Wifi Toggled");
+            }
+            int repeatInterval = 5000; // 5s
+//            boolean isActive = isPendingIntentRegistered(getActivity(), NewsObject, ID);
+
+            Log.v("cek_obj", String.valueOf(AlarmObj) );
+            Log.v("cek_kalender",String.valueOf(c));
+
+            ControllerAlarmRoutine.startAlarmService(getActivity().getApplicationContext(), AlarmObj, repeatInterval, ID, c);
+
+//            boolean isActive2 = isPendingIntentRegistered(getActivity(), NewsObject, ID);
+//            Log.v("isActive2??? ", Boolean.toString(isActive2) );
+>>>>>>> 52caf5c5b44d269ead2f41365ecff2ed9adc0554
             saveAlarmToDatabase(AlarmObj);
         }
     }
