@@ -17,6 +17,8 @@ import androidx.fragment.app.Fragment;
 
 import java.util.Calendar;
 
+import static com.example.tugas_besar_ifttw.ControllerAlarmRoutine.convertStringToCalendar;
+
 public class FragmentActiveRoutine extends Fragment {
     View view;
     RelativeLayout fragmentRelativeLayout;
@@ -86,33 +88,40 @@ public class FragmentActiveRoutine extends Fragment {
                     fragmentRelativeLayout.addView(routine.getRelativeLayout());
                     prevRoutineID = result.getString(0);
 
-                } else if (result.getString(4).equals("Alarm")) {
-                    int timerHour = result.getInt(10);
-                    int timerMinute = result.getInt(11);
-                    String timerDate = result.getString(12);
-                    String timerRepeat = result.getString(13);
+                } else if (result.getString(4).equals("AlarmTimer")) {
+                    int timerHour = result.getInt(9);
+                    int timerMinute = result.getInt(10);
+                    String timerDate = result.getString(11);
+                    String timerRepeat = result.getString(12);
 
-                    if (timerDate != null) {
+                    if (timerDate != null && !timerDate.isEmpty()) {
                         condValue = timerDate;
-                    } else if (timerRepeat != null) {
+                    } else if (timerRepeat != null && !timerRepeat.isEmpty()) {
                         condValue = timerRepeat;
                     }
 
                     condName = String.valueOf(timerHour) + ":" + String.valueOf(timerMinute);
+                    ModelAlarm AlarmObject = new ModelAlarm(baseObject.modelID, baseObject.action, timerHour, timerMinute, timerDate, timerRepeat);
+                    AlarmObject.setNotifAttributes(baseObject.notifTitle, baseObject.notifContent);
                     ViewRoutine routine = new ViewRoutine(getActivity().getApplicationContext(), baseObject, condName, condValue, isActive);
 
-//                    ModelAlarm AlarmObject = new ModelAlarm(baseObject.modelID, baseObject.action, timerHour, timerMinute, timerDate, timerRepeat);
-//                    AlarmObject.setNotifAttributes(baseObject.notifTitle, baseObject.notifContent);
+                    Calendar calendar;
+                    if (timerDate != null && !timerDate.isEmpty()) {
+                        calendar = ControllerAlarmRoutine.convertStringToCalendar(timerDate, timerHour, timerMinute);
+                    } else {
+                        calendar = ControllerAlarmRoutine.convertStringToTodayCalendar(timerHour, timerMinute);
+                    }
 
-                    // Listener...
-//                    routine.addSwitchAlarmListener(getActivity().getApplicationContext(), AlarmObject,, final Calendar calendar, final int ID)
+                    routine.addSwitchAlarmListener(getActivity().getApplicationContext(), AlarmObject, calendar, Integer.parseInt(AlarmObject.modelID));
+                    routine.addDeleteButtonAlarmListener(getActivity().getApplicationContext(), AlarmObject, Integer.parseInt(AlarmObject.modelID));
+                    routine.constructView();
+
                     if (prevRoutineID != null) {
                         routine.setRelativeLayoutBelow(prevRoutineID);
                     }
                     fragmentRelativeLayout.addView(routine.getRelativeLayout());
                     prevRoutineID = result.getString(0);
                 }
-
             }
         }
         return view;

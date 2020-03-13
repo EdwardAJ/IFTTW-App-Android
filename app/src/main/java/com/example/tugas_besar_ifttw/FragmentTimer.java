@@ -167,11 +167,6 @@ public class FragmentTimer extends FragmentBaseAddRoutine implements TimePickerD
             Toast.makeText(getActivity(), "Service starts now...", Toast.LENGTH_LONG).show();
             int ID = (int) SystemClock.elapsedRealtime();
 
-//            Log.v("test_hour", String.valueOf(Integer.parseInt(separated_time_arr[0])));
-//            Log.v("test_minute", String.valueOf(Integer.parseInt(separated_time_arr[1])));
-//            Log.v("test_date", string_tiet_date);
-//            Log.v("test_repeat", selected_spinner);
-
             ModelAlarm AlarmObj = new ModelAlarm(String.valueOf(ID),"Notification",Integer.parseInt(separated_time_arr[0]),Integer.parseInt(separated_time_arr[1]),string_tiet_date,selected_spinner);
             if (this.getSelectedActionText().equals("Send Me A Notification")) {
                 AlarmObj.setNotifAttributes(this.notifTitle.getText().toString(), this.notifContent.getText().toString());
@@ -183,16 +178,16 @@ public class FragmentTimer extends FragmentBaseAddRoutine implements TimePickerD
                 AlarmObj.action = "Wifi Off";
                 AlarmObj.setNotifAttributes("Wifi Off", "Wifi Will be Turned Off...");
             }
-            int repeatInterval = 5000; // 5s
             startAlarmService(getActivity(), AlarmObj, ID, c);
             saveAlarmToDatabase(AlarmObj);
+            getActivity().finish();
         }
     }
 
     private void saveAlarmToDatabase(ModelAlarm AlarmObj) {
         database = new DatabaseHelper(getActivity());
         database.insertData(AlarmObj.modelID, AlarmObj.action, AlarmObj.notifTitle,
-                AlarmObj.notifContent, "AlarmTimer", null, null, null,0, AlarmObj.hour, AlarmObj.minute, AlarmObj.date,
+                AlarmObj.notifContent, "AlarmTimer", null, null, null,-1, AlarmObj.hour, AlarmObj.minute, AlarmObj.date,
                 AlarmObj.repeat, 1);
     }
 }

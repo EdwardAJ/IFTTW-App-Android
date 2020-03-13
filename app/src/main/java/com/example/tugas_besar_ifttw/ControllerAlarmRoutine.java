@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 
 import static android.content.Context.ALARM_SERVICE;
@@ -27,20 +28,17 @@ public class ControllerAlarmRoutine {
     public static void startAlarmService (Context context, ModelAlarm AlarmObject, int ID, Calendar c) {
         long repeatInterval;
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
         PendingIntent pendingIntent = getUpdateCurrentPendingIntent(context, AlarmObject, ID);
-
-        LocalDateTime ldt = toLocalDateTime(c);
 
         if (c != null && c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 1);
         }
 
-        Log.v("cek_now", String.valueOf(Calendar.getInstance().getTimeInMillis()));
-        Log.v("cek_alarm", String.valueOf(c.getTimeInMillis()));
+//        Log.v("cek_now", String.valueOf(Calendar.getInstance().getTimeInMillis()));
+        //        Log.v("cek_alarm", String.valueOf(c.getTimeInMillis()));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-            if (AlarmObject.date != null){
+            if (AlarmObject.date != null && !AlarmObject.date.isEmpty()){
 
                 if (AlarmObject.repeat.equals("Everyday")){
                     repeatInterval = 1000*60*60*24;
@@ -89,11 +87,8 @@ public class ControllerAlarmRoutine {
                             (AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime()+alarm_interval,
                                     repeatInterval, pendingIntent);
                     Log.v("Alarm_type", "Weekly" );
-
                 }
-
             } else {
-
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
                 Log.v("Alarm_type", "Single" );
 
@@ -112,9 +107,6 @@ public class ControllerAlarmRoutine {
         return LocalDateTime.ofInstant(calendar.toInstant(), zid);
     }
 
-    public static boolean isPendingIntentRegistered(Context context, ModelAlarm AlarmObj, int ID) {
-        return getNoCreatePendingIntent(context, AlarmObj, ID) != null;
-    }
 
     public static void cancelPendingIntent(Context context, ModelAlarm AlarmObj, int ID) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
@@ -123,11 +115,6 @@ public class ControllerAlarmRoutine {
         }
     }
 
-    public static PendingIntent getNoCreatePendingIntent(Context context, ModelAlarm AlarmObj, int ID) {
-        Intent intent = getIntent(context, AlarmObj);
-        return PendingIntent.getBroadcast(context, ID,
-                intent, PendingIntent.FLAG_NO_CREATE);
-    }
 
     public static PendingIntent getUpdateCurrentPendingIntent(Context context, ModelAlarm AlarmObj, int ID) {
         Intent intent  = getIntent(context, AlarmObj);
@@ -144,13 +131,18 @@ public class ControllerAlarmRoutine {
     }
 
     public static Calendar convertStringToCalendar(String date, int hour, int minute) {
+
+        Log.v("Date: ", "huaaa");
+        Log.v("Date: ", date);
         String[] dateInfo = date.split("/", 3);
         String year = dateInfo[0];
         String month = dateInfo[1];
         String day = dateInfo[2];
+
+        Log.v("Year: ", year);
         String hourStr = String.valueOf(hour);
         String minuteStr = String.valueOf(minute);
-        String dateTimeStr = year + "-" + month + "-" + day + " " + hourStr + ":" + minuteStr + ":00";
+        String dateTimeStr = year + "-" + String.valueOf(Integer.parseInt(month) + 2)  + "-" + day + " " + hourStr + ":" + minuteStr + ":00";
 
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
         Calendar cal = Calendar.getInstance();
@@ -159,6 +151,34 @@ public class ControllerAlarmRoutine {
         } catch(Exception e) {
 
         }
+
+        Log.v("DATETIME2", String.valueOf(cal.getTime()));
         return cal;
+    }
+
+    public static Calendar convertStringToTodayCalendar(int hour, int minute) {
+        Log.v("DAEATAWA ", "adadada");
+        Date date = Calendar.getInstance().getTime();
+
+        Log.v("NANI??? ", String.valueOf(Calendar.getInstance().getTime()));
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+        String strDate = dateFormat.format(date);
+        Log.v("StrDate ", strDate);
+
+        String newDateTimeStr = strDate + " " + String.valueOf(hour) + ":" + String.valueOf(minute) + ":00";
+        Log.v("newDateTime", newDateTimeStr);
+        DateFormat df = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+
+
+        try {
+            cal.setTime(df.parse(newDateTimeStr));
+        } catch(Exception e) {
+
+        }
+
+        Log.v("DATETIME", String.valueOf(cal.getTime()));
+        return cal;
+
     }
 }

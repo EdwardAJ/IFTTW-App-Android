@@ -98,13 +98,13 @@ public class ViewRoutine  {
         });
     }
 
-    public void addSwitchAlarmListener(final Context context, final ModelAlarm AlarmObject, final int repeatInterval, final Calendar calendar, final int ID) {
+    public void addSwitchAlarmListener(final Context context, final ModelAlarm AlarmObject, final Calendar calendar, final int ID) {
         routineSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     Toast.makeText(context, "Starting Routine...", Toast.LENGTH_SHORT).show();
-                    ControllerAlarmRoutine.startAlarmService(context, AlarmObject, repeatInterval, ID, calendar);
+                    ControllerAlarmRoutine.startAlarmService(context, AlarmObject, ID, calendar);
                     database.updateIsActiveData(String.valueOf(ID), 1);
                 } else {
                     Toast.makeText(context, "Cancelling Routine...", Toast.LENGTH_SHORT).show();

@@ -10,6 +10,10 @@ import android.widget.RelativeLayout;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.Calendar;
+
+import static com.example.tugas_besar_ifttw.ControllerAlarmRoutine.convertStringToCalendar;
+
 
 public class FragmentInactiveRoutine extends Fragment {
     View view;
@@ -72,6 +76,39 @@ public class FragmentInactiveRoutine extends Fragment {
                     ViewRoutine routine = new ViewRoutine(getActivity(), baseObject, condName, String.valueOf(sensorCondValue), isActive);
                     routine.addDeleteButtonSensorListener(getActivity().getApplicationContext(), Integer.parseInt(SensorObject.modelID));
                     routine.addSwitchSensorListener(getActivity().getApplicationContext(), Integer.parseInt(SensorObject.modelID));
+                    routine.constructView();
+
+                    if (prevRoutineID != null) {
+                        routine.setRelativeLayoutBelow(prevRoutineID);
+                    }
+                    fragmentRelativeLayout.addView(routine.getRelativeLayout());
+                    prevRoutineID = result.getString(0);
+                } else if (result.getString(4).equals("AlarmTimer")) {
+                    int timerHour = result.getInt(9);
+                    int timerMinute = result.getInt(10);
+                    String timerDate = result.getString(11);
+                    String timerRepeat = result.getString(12);
+
+                    if (timerDate != null && !timerDate.isEmpty()) {
+                        condValue = timerDate;
+                    } else if (timerRepeat != null && !timerRepeat.isEmpty()) {
+                        condValue = timerRepeat;
+                    }
+
+                    condName = String.valueOf(timerHour) + ":" + String.valueOf(timerMinute);
+                    ModelAlarm AlarmObject = new ModelAlarm(baseObject.modelID, baseObject.action, timerHour, timerMinute, timerDate, timerRepeat);
+                    AlarmObject.setNotifAttributes(baseObject.notifTitle, baseObject.notifContent);
+                    ViewRoutine routine = new ViewRoutine(getActivity().getApplicationContext(), baseObject, condName, condValue, isActive);
+
+                    Calendar calendar = null;
+                    if (timerDate != null && !timerDate.isEmpty()) {
+                        calendar = convertStringToCalendar(timerDate, timerHour, timerMinute);
+                    } else {
+                        calendar = ControllerAlarmRoutine.convertStringToTodayCalendar(timerHour, timerMinute);
+                    }
+
+                    routine.addSwitchAlarmListener(getActivity().getApplicationContext(), AlarmObject, calendar, Integer.parseInt(AlarmObject.modelID));
+                    routine.addDeleteButtonAlarmListener(getActivity().getApplicationContext(), AlarmObject, Integer.parseInt(AlarmObject.modelID));
                     routine.constructView();
 
                     if (prevRoutineID != null) {
