@@ -59,10 +59,12 @@ public class NewsReceiver extends BroadcastReceiver {
 
                             totalResults = Integer.parseInt(tempTotalResults);
                             // TODO: change to totalResults > 0
-                            if (totalResults == 0) {
+                            if (totalResults > 0) {
                                 Log.v("ACTION", ReceivedNewsObject.action);
-                                if (ReceivedNewsObject.action.equals("Wifi")) {
-                                    changeWifiState(context);
+                                if (ReceivedNewsObject.action.equals("Wifi Off")) {
+                                    changeWifiOnToOffState(context);
+                                } else if (ReceivedNewsObject.action.equals("Wifi On")) {
+                                    changeWifiOffToOnState(context);
                                 } else {
                                     deliverNotification(context);
                                 }
@@ -84,9 +86,14 @@ public class NewsReceiver extends BroadcastReceiver {
         queue.add(jsonObjectRequest);
     }
 
-    public void changeWifiState(final Context context) {
-        Toast.makeText(context, "Wifi Status Is Changed!", 5000).show();
-        wifiManager.setWifiEnabled(!wifiManager.isWifiEnabled());
+    public void changeWifiOnToOffState(final Context context) {
+        Toast.makeText(context, "Wifi Status Is Now Off", Toast.LENGTH_SHORT).show();
+        wifiManager.setWifiEnabled(false);
+    }
+
+    public void changeWifiOffToOnState(final Context context) {
+        Toast.makeText(context, "Wifi Status Is Now On", Toast.LENGTH_SHORT).show();
+        wifiManager.setWifiEnabled(true);
     }
 
     private void deliverNotification(Context context) {

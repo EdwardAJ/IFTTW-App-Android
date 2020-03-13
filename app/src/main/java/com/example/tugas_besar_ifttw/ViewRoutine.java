@@ -3,6 +3,8 @@ package com.example.tugas_besar_ifttw;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.tugas_besar_ifttw.ControllerNewsRoutine.cancelPendingIntent;
 import static com.example.tugas_besar_ifttw.ControllerNewsRoutine.startNewsService;
@@ -73,6 +78,24 @@ public class ViewRoutine  {
         });
     }
 
+    public void addSwitchSensorListener(final Context context, final int ID) {
+        routineSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Log.v("CHECKED: ", String.valueOf(ID));
+                    database.updateIsActiveData(String.valueOf(ID), 1);
+                } else {
+                    Log.v("NOT CHECKED: ", String.valueOf(ID));
+                    database.updateIsActiveData(String.valueOf(ID), 0);
+                }
+                ControllerSensorRoutine.stopService(context);
+                ControllerSensorRoutine.startSensorService(context);
+            }
+        });
+    }
+
     public void addDeleteButtonNewsListener(final Context context, final ModelNews NewsObject, final int ID) {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,11 +106,26 @@ public class ViewRoutine  {
                 Intent intent = new Intent(context, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
-
-//                ((Activity) context).getFragmentManager().beginTransaction().detach((Fragment) context).attach(context).commit();
             }
         });
     }
+
+    public void addDeleteButtonSensorListener(final Context context, final int ID) {
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Deleting Routine...", Toast.LENGTH_SHORT).show();
+                database.deleteData(String.valueOf(ID));
+                ControllerSensorRoutine.stopService(context);
+                ControllerSensorRoutine.startSensorService(context);
+
+                Intent intent = new Intent(context, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
+    }
+
 
 
     public void constructView() {

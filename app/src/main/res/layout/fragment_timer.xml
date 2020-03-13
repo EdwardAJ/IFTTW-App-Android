@@ -230,11 +230,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/turn_wifi_radio"
+                android:text="Turn Wifi On"
+                android:textColor="@android:color/white"
+                app:buttonTint="@android:color/white" />
+
+            <RadioButton
+                android:id="@+id/wifi_radio_button_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Turn Wifi Off"
                 android:textColor="@android:color/white"
                 app:buttonTint="@android:color/white" />
         </RadioGroup>
-
 
         <Button
             android:id="@+id/add_button_id"

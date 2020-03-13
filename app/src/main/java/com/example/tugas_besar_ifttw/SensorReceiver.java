@@ -16,7 +16,6 @@ import com.google.gson.Gson;
 
 public class SensorReceiver extends BroadcastReceiver {
 
-    private ModelSensor ReceivedSensorObjectFromFragment;
     private ModelSensor ReceivedSensorObjectFromService;
 
     private WifiManager wifiManager;
@@ -28,30 +27,27 @@ public class SensorReceiver extends BroadcastReceiver {
         wifiManager = (WifiManager)context.getSystemService(Context.WIFI_SERVICE);
         Gson gson = new Gson();
         mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-        if (intent.getStringExtra("ID").equals("ACTION")) {
-            ReceivedSensorObjectFromService = gson.fromJson(intent.getStringExtra("ACTION"), ModelSensor.class);
-            Log.v("ID SENSORSERVICERECV: ", ReceivedSensorObjectFromService.modelID);
-            if (ReceivedSensorObjectFromService.action.equals("Wifi")) {
-                changeWifiState(context);
-            } else {
-                deliverNotification(context);
-            }
-
+        ReceivedSensorObjectFromService = gson.fromJson(intent.getStringExtra("ACTION"), ModelSensor.class);
+        Log.v("ID SENSORSERVICERECV: ", ReceivedSensorObjectFromService.modelID);
+        if (ReceivedSensorObjectFromService.action.equals("Wifi Off")) {
+            changeWifiOnToOffState(context);
+        } else if (ReceivedSensorObjectFromService.action.equals("Wifi On")) {
+            changeWifiOffToOnState(context);
         } else {
-            ReceivedSensorObjectFromFragment = gson.fromJson(intent.getStringExtra("SensorObject"), ModelSensor.class);
-            Log.v("ID SENSORFRAGMENTRECV: ", ReceivedSensorObjectFromFragment.modelID);
-            Intent newIntent = new Intent(context, ServiceLightSensor.class);
-            Gson serviceGson = new Gson();
-            newIntent.putExtra("SensorObject", serviceGson.toJson(ReceivedSensorObjectFromFragment));
-            context.startForegroundService(new Intent(context, ServiceLightSensor.class));
+            deliverNotification(context);
         }
     }
 
-    public void changeWifiState(final Context context) {
-        Toast.makeText(context, "Wifi Status Is Changed!", 5000).show();
-        wifiManager.setWifiEnabled(!wifiManager.isWifiEnabled());
+    public void changeWifiOnToOffState(final Context context) {
+        Toast.makeText(context, "Wifi Status Is Now Off", Toast.LENGTH_SHORT).show();
+        wifiManager.setWifiEnabled(false);
     }
+
+    public void changeWifiOffToOnState(final Context context) {
+        Toast.makeText(context, "Wifi Status Is Now On", Toast.LENGTH_SHORT).show();
+        wifiManager.setWifiEnabled(true);
+    }
+
 
     private void deliverNotification(Context context) {
         Intent contentIntent = new Intent(context, MainActivity.class);

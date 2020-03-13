@@ -57,6 +57,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result;
     }
 
+    public Cursor getAllDataWithServiceCondition() {
+        open();
+        Log.v("CHECKED", "DB");
+        Cursor result = database.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE CONDITION_NAME = 'Sensor' AND IS_ACTIVE = 1" , null);
+        return result;
+    }
+
     public boolean updateIsActiveData(String id, int isActive) {
         open();
         ContentValues contentValues = new ContentValues();

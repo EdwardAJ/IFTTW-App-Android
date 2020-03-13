@@ -36,7 +36,6 @@ public class FragmentInactiveRoutine extends Fragment {
                 Log.v("ID: ", result.getString(0));
                 String condName = null;
                 String condValue = null;
-//                boolean isActive = false;
 
                 // Construct baseObject
                 ModelBase baseObject = new ModelBase(result.getString(0),
@@ -44,6 +43,7 @@ public class FragmentInactiveRoutine extends Fragment {
                 baseObject.setNotifAttributes(result.getString(2),
                         result.getString(3));
 
+                Log.v("Result", result.getString(4));
 
                 if (result.getString(4).equals("NewsAPI")) {
                     condName = result.getString(5);
@@ -51,23 +51,35 @@ public class FragmentInactiveRoutine extends Fragment {
                     ModelNews NewsObject = new ModelNews(baseObject.modelID, baseObject.action, condName, condValue);
                     NewsObject.setNotifAttributes(baseObject.notifTitle, baseObject.notifContent);
 
-                    // cancelPendingIntent(getActivity().getApplicationContext(), NewsObject, Integer.parseInt(NewsObject.modelID));
-//                    isActive = isPendingIntentRegistered(getActivity().getApplicationContext(), NewsObject, Integer.parseInt(NewsObject.modelID));
-//                    Log.v("isActive? ", Boolean.toString(isActive));
+                    // Construct new Relative Layout
+                    ViewRoutine routine = new ViewRoutine(getActivity(), baseObject, condName, condValue, isActive);
+                    routine.addDeleteButtonNewsListener(getActivity().getApplicationContext(), NewsObject, Integer.parseInt(NewsObject.modelID));
+                    routine.addSwitchNewsListener(getActivity().getApplicationContext(), NewsObject, 5000, Integer.parseInt(NewsObject.modelID));
+                    routine.constructView();
+                    if (prevRoutineID != null) {
+                        routine.setRelativeLayoutBelow(prevRoutineID);
+                    }
+                    fragmentRelativeLayout.addView(routine.getRelativeLayout());
+                    prevRoutineID = result.getString(0);
 
+                } else if (result.getString(4).equals("Sensor")) {
+                    condName = result.getString(7);
+                    Double sensorCondValue = result.getDouble(8);
+                    ModelSensor SensorObject = new ModelSensor(baseObject.modelID, baseObject.action, sensorCondValue, condName);
+                    SensorObject.setNotifAttributes(baseObject.notifTitle, baseObject.notifContent);
 
-                        // Construct new Relative Layout
-                        ViewRoutine routine = new ViewRoutine(getActivity(), baseObject, condName, condValue, isActive);
-                        routine.addDeleteButtonNewsListener(getActivity().getApplicationContext(), NewsObject, Integer.parseInt(NewsObject.modelID));
-                        routine.addSwitchNewsListener(getActivity().getApplicationContext(), NewsObject, 5000, Integer.parseInt(NewsObject.modelID));
-                        routine.constructView();
-                        if (prevRoutineID != null) {
-                            routine.setRelativeLayoutBelow(prevRoutineID);
-                        }
-                        fragmentRelativeLayout.addView(routine.getRelativeLayout());
-                        prevRoutineID = result.getString(0);
+                    // Construct new Relative Layout
+                    ViewRoutine routine = new ViewRoutine(getActivity(), baseObject, condName, String.valueOf(sensorCondValue), isActive);
+                    routine.addDeleteButtonSensorListener(getActivity().getApplicationContext(), Integer.parseInt(SensorObject.modelID));
+                    routine.addSwitchSensorListener(getActivity().getApplicationContext(), Integer.parseInt(SensorObject.modelID));
+                    routine.constructView();
+
+                    if (prevRoutineID != null) {
+                        routine.setRelativeLayoutBelow(prevRoutineID);
+                    }
+                    fragmentRelativeLayout.addView(routine.getRelativeLayout());
+                    prevRoutineID = result.getString(0);
                 }
-
             }
         }
         return view;

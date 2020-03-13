@@ -37,9 +37,10 @@ public class FragmentSensor extends FragmentBaseAddRoutine {
     }
 
     protected String getLuminosityString() {
-        TextInputEditText luminosity = getView().findViewById(R.id.text_input_layout_choose_lumen_id);
+        TextInputEditText luminosity = getView().findViewById(R.id.text_choose_luminosity_id);
         return luminosity.getText().toString();
     }
+
     protected double getLuminosityDoubleValue() {
         return Double.parseDouble(getLuminosityString());
     }
@@ -60,13 +61,17 @@ public class FragmentSensor extends FragmentBaseAddRoutine {
             if (this.getSelectedActionText().equals("Send Me A Notification")) {
                 SensorObject.setNotifAttributes(this.notifTitle.getText().toString(), this.notifContent.getText().toString());
                 this.createNotificationChannel();
-            } else {
-                SensorObject.action = "Wifi";
-                SensorObject.setNotifAttributes("Wifi", "Wifi Toggled");
+            } else if (this.getSelectedActionText().equals("Turn Wifi On")) {
+                SensorObject.action = "Wifi On";
+                SensorObject.setNotifAttributes("Wifi On", "Wifi Will be Turned On...");
+            } else if (this.getSelectedActionText().equals("Turn Wifi Off")) {
+                SensorObject.action = "Wifi Off";
+                SensorObject.setNotifAttributes("Wifi Off", "Wifi Will be Turned Off...");
             }
 
-            startSensorService(getActivity().getApplicationContext(), SensorObject);
             saveSensorToDatabase(SensorObject);
+            ControllerSensorRoutine.stopService(getActivity().getApplicationContext());
+            ControllerSensorRoutine.startSensorService(getActivity().getApplicationContext());
             getActivity().finish();
         }
     }

@@ -2,6 +2,7 @@ package com.example.tugas_besar_ifttw;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
@@ -23,7 +24,13 @@ public class AddRoutineActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_routine);
+
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setContentView(R.layout.activity_add_routine_land);
+        } else {
+            setContentView(R.layout.activity_add_routine);
+        }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

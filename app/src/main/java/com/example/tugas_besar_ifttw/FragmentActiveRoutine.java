@@ -37,6 +37,7 @@ public class FragmentActiveRoutine extends Fragment {
         if (result.getCount() != 0) {
             while (result.moveToNext()) {
                 Log.v("ID: ", result.getString(0));
+                Log.v("Result", result.getString(4));
                 String condName = null;
                 String condValue = null;
 
@@ -63,6 +64,25 @@ public class FragmentActiveRoutine extends Fragment {
                         }
                         fragmentRelativeLayout.addView(routine.getRelativeLayout());
                         prevRoutineID = result.getString(0);
+
+                } else if (result.getString(4).equals("Sensor")) {
+                    condName = result.getString(7);
+                    Double sensorCondValue = result.getDouble(8);
+                    ModelSensor SensorObject = new ModelSensor(baseObject.modelID, baseObject.action, sensorCondValue, condName);
+                    SensorObject.setNotifAttributes(baseObject.notifTitle, baseObject.notifContent);
+
+                    // Construct new Relative Layout
+                    ViewRoutine routine = new ViewRoutine(getActivity(), baseObject, condName, String.valueOf(sensorCondValue), isActive);
+                    routine.addDeleteButtonSensorListener(getActivity().getApplicationContext(), Integer.parseInt(SensorObject.modelID));
+                    routine.addSwitchSensorListener(getActivity().getApplicationContext(), Integer.parseInt(SensorObject.modelID));
+                    routine.constructView();
+
+                    if (prevRoutineID != null) {
+                        routine.setRelativeLayoutBelow(prevRoutineID);
+                    }
+                    fragmentRelativeLayout.addView(routine.getRelativeLayout());
+                    prevRoutineID = result.getString(0);
+
                 }
 
             }

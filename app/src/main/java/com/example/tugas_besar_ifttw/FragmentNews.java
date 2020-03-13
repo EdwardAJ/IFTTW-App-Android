@@ -57,10 +57,14 @@ public class FragmentNews extends FragmentBaseAddRoutine {
             if (this.getSelectedActionText().equals("Send Me A Notification")) {
                 NewsObject.setNotifAttributes(this.notifTitle.getText().toString(), this.notifContent.getText().toString());
                 this.createNotificationChannel();
-            } else {
-                NewsObject.action = "Wifi";
-                NewsObject.setNotifAttributes("Wifi", "Wifi Toggled");
+            } else if (this.getSelectedActionText().equals("Turn Wifi On")) {
+                NewsObject.action = "Wifi On";
+                NewsObject.setNotifAttributes("Wifi On", "Wifi Will be Turned On...");
+            } else if (this.getSelectedActionText().equals("Turn Wifi Off")) {
+                NewsObject.action = "Wifi Off";
+                NewsObject.setNotifAttributes("Wifi Off", "Wifi Will be Turned Off...");
             }
+
             int repeatInterval = 5000; // 5s
             startNewsService(getActivity().getApplicationContext(), NewsObject, repeatInterval, ID);
             saveNewsToDatabase(NewsObject);
