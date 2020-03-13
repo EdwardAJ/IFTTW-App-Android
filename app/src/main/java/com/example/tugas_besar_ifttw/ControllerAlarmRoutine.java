@@ -70,6 +70,22 @@ public class ControllerAlarmRoutine {
                     repeatInterval = 1000*60*60*24*7;
 //                    repeatInterval = 61000;
 
+                    if (AlarmObject.repeat.equals("Every Monday")){
+                        c.set(Calendar.DAY_OF_WEEK,1);
+                    } else if (AlarmObject.repeat.equals("Every Tuesday")){
+                        c.set(Calendar.DAY_OF_WEEK,2);
+                    } else if (AlarmObject.repeat.equals("Every Wednesday")){
+                        c.set(Calendar.DAY_OF_WEEK,3);
+                    } else if (AlarmObject.repeat.equals("Every Thursday")){
+                        c.set(Calendar.DAY_OF_WEEK,4);
+                    } else if (AlarmObject.repeat.equals("Every Friday")){
+                        c.set(Calendar.DAY_OF_WEEK,5);
+                    } else if (AlarmObject.repeat.equals("Every Saturday")){
+                        c.set(Calendar.DAY_OF_WEEK,6);
+                    } else if (AlarmObject.repeat.equals("Every Sunday")){
+                        c.set(Calendar.DAY_OF_WEEK,7);
+                    }
+
                     do {
                         if (c.before(Calendar.getInstance())) {
                             c.add(Calendar.WEEK_OF_MONTH, 1);
