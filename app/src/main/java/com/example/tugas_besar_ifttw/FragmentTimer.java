@@ -176,7 +176,6 @@ public class FragmentTimer extends FragmentBaseAddRoutine implements TimePickerD
             ModelAlarm AlarmObj = new ModelAlarm(String.valueOf(ID),"Notification",Integer.parseInt(separated_time_arr[0]),Integer.parseInt(separated_time_arr[1]),string_tiet_date,selected_spinner);
             if (this.getSelectedActionText().equals("Send Me A Notification")) {
                 AlarmObj.setNotifAttributes(this.notifTitle.getText().toString(), this.notifContent.getText().toString());
-<<<<<<< HEAD
                 this.createNotificationChannel();
             } else if (this.getSelectedActionText().equals("Turn Wifi On")){
                 AlarmObj.action = "Wifi On";
@@ -186,24 +185,7 @@ public class FragmentTimer extends FragmentBaseAddRoutine implements TimePickerD
                 AlarmObj.setNotifAttributes("Wifi Off", "Wifi Will be Turned Off...");
             }
             int repeatInterval = 5000; // 5s
-            startAlarmService(getActivity(), AlarmObj, repeatInterval, ID);
-=======
-//                this.createNotificationChannel();
-            } else {
-                AlarmObj.setAction("Wifi");
-                AlarmObj.setNotifAttributes("Wifi", "Wifi Toggled");
-            }
-            int repeatInterval = 5000; // 5s
-//            boolean isActive = isPendingIntentRegistered(getActivity(), NewsObject, ID);
-
-            Log.v("cek_obj", String.valueOf(AlarmObj) );
-            Log.v("cek_kalender",String.valueOf(c));
-
-            ControllerAlarmRoutine.startAlarmService(getActivity().getApplicationContext(), AlarmObj, repeatInterval, ID, c);
-
-//            boolean isActive2 = isPendingIntentRegistered(getActivity(), NewsObject, ID);
-//            Log.v("isActive2??? ", Boolean.toString(isActive2) );
->>>>>>> 52caf5c5b44d269ead2f41365ecff2ed9adc0554
+//            startAlarmService(getActivity(), AlarmObj, repeatInterval, ID);
             saveAlarmToDatabase(AlarmObj);
         }
     }
