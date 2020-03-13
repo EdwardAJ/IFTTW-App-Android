@@ -63,7 +63,7 @@ public class ControllerAlarmRoutine {
 
                     alarmManager.setRepeating
                             (AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime()+alarm_interval,
-                                    repeatInterval, pendingIntent);
+                                    AlarmManager.INTERVAL_DAY, pendingIntent);
                     Log.v("Alarm_type", "Daily" );
 
                 } else { //Every particular day
@@ -101,7 +101,7 @@ public class ControllerAlarmRoutine {
 
                     alarmManager.setRepeating
                             (AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime()+alarm_interval,
-                                    repeatInterval, pendingIntent);
+                                    AlarmManager.INTERVAL_DAY*7, pendingIntent);
                     Log.v("Alarm_type", "Weekly" );
 
                 }
