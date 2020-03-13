@@ -30,40 +30,40 @@
 
  Gambar 2
 
-![Gambar 2](/images/1.jpg)
+![Gambar 2](/images/2.jpg)
 
  Gambar 3
 
-![Gambar 3](/images/1.jpg)
+![Gambar 3](/images/3.jpg)
 
  Gambar 4
 
-![Gambar 4](/images/1.jpg)
+![Gambar 4](/images/4.jpg)
 
  Gambar 5
 
-![Gambar 5](/images/1.jpg)
+![Gambar 5](/images/5.jpg)
 
  Gambar 6
 
-![Gambar 6](/images/1.jpg)
+![Gambar 6](/images/6.jpg)
 
  Gambar 7
 
-![Gambar 7](/images/1.jpg)
+![Gambar 7](/images/7.jpg)
 
  Gambar 8
 
-![Gambar 8](/images/1.jpg)
+![Gambar 8](/images/8.jpg)
 
  Gambar 9
 
-![Gambar 9](/images/1.jpg)
+![Gambar 9](/images/9.jpg)
 
  Gambar 10
 
-![Gambar 10](/images/1.jpg)
+![Gambar 10](/images/10.jpg)
 
  Gambar 11
 
-![Gambar 11](/images/1.jpg)
+![Gambar 11](/images/11.jpg)
