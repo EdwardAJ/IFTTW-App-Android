@@ -17,7 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-import static com.example.tugas_besar_ifttw.ControllerNewsRoutine.isPendingIntentRegistered;
 import static com.example.tugas_besar_ifttw.ControllerNewsRoutine.startNewsService;
 
 public class FragmentNews extends FragmentBaseAddRoutine {

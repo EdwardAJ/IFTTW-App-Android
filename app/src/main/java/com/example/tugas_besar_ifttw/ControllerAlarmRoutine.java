@@ -26,6 +26,8 @@ public class ControllerAlarmRoutine {
 
     @TargetApi(26)
     public static void startAlarmService (Context context, ModelAlarm AlarmObject, int ID, Calendar c) {
+        Log.v("MAMPOS", "HI!");
+
         long repeatInterval;
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = getUpdateCurrentPendingIntent(context, AlarmObject, ID);
@@ -38,7 +40,9 @@ public class ControllerAlarmRoutine {
         //        Log.v("cek_alarm", String.valueOf(c.getTimeInMillis()));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-            if (AlarmObject.date != null && !AlarmObject.date.isEmpty()){
+            Log.v("alarmObject.repeat", AlarmObject.repeat);
+            Log.v("alarmObject.date", AlarmObject.date);
+            if (AlarmObject.date == null || AlarmObject.date.isEmpty()){
 
                 if (AlarmObject.repeat.equals("Everyday")){
                     repeatInterval = 1000*60*60*24;
@@ -107,7 +111,6 @@ public class ControllerAlarmRoutine {
             } else {
                 alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
                 Log.v("Alarm_type", "Single" );
-
             }
         }
     }
@@ -148,51 +151,55 @@ public class ControllerAlarmRoutine {
 
     public static Calendar convertStringToCalendar(String date, int hour, int minute) {
 
-        Log.v("Date: ", "huaaa");
-        Log.v("Date: ", date);
         String[] dateInfo = date.split("/", 3);
-        String year = dateInfo[0];
-        String month = dateInfo[1];
-        String day = dateInfo[2];
+        String yearStr = dateInfo[0];
+        int year = Integer.parseInt(yearStr);
+        String monthStr = dateInfo[1];
+        int month = Integer.parseInt(monthStr) + 1;
+        String dayStr = dateInfo[2];
+        int day = Integer.parseInt(dayStr);
 
-        Log.v("Year: ", year);
-        String hourStr = String.valueOf(hour);
-        String minuteStr = String.valueOf(minute);
-        String dateTimeStr = year + "-" + String.valueOf(Integer.parseInt(month) + 2)  + "-" + day + " " + hourStr + ":" + minuteStr + ":00";
-
-        DateFormat df = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
         Calendar cal = Calendar.getInstance();
-        try {
-            cal.setTime(df.parse(dateTimeStr));
-        } catch(Exception e) {
-
+        int CONST = 0;
+        switch (month) {
+            case 1:
+                CONST = Calendar.JANUARY; break;
+            case 2:
+                CONST = Calendar.FEBRUARY; break;
+            case 3:
+                CONST = Calendar.MARCH; break;
+            case 4:
+                CONST = Calendar.APRIL; break;
+            case 5:
+                CONST = Calendar.MAY; break;
+            case 6:
+                CONST = Calendar.JUNE; break;
+            case 7:
+                CONST = Calendar.JULY; break;
+            case 8:
+                CONST = Calendar.AUGUST; break;
+            case 9:
+                CONST = Calendar.SEPTEMBER; break;
+            case 10:
+                CONST = Calendar.OCTOBER; break;
+            case 11:
+                CONST = Calendar.NOVEMBER; break;
+            case 12:
+                CONST = Calendar.DECEMBER; break;
         }
-
+        cal.set(year, CONST, day);
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, minute);
+        cal.set(Calendar.SECOND, 0);
         Log.v("DATETIME2", String.valueOf(cal.getTime()));
         return cal;
     }
 
     public static Calendar convertStringToTodayCalendar(int hour, int minute) {
-        Log.v("DAEATAWA ", "adadada");
-        Date date = Calendar.getInstance().getTime();
-
-        Log.v("NANI??? ", String.valueOf(Calendar.getInstance().getTime()));
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-        String strDate = dateFormat.format(date);
-        Log.v("StrDate ", strDate);
-
-        String newDateTimeStr = strDate + " " + String.valueOf(hour) + ":" + String.valueOf(minute) + ":00";
-        Log.v("newDateTime", newDateTimeStr);
-        DateFormat df = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
         Calendar cal = Calendar.getInstance();
-
-
-        try {
-            cal.setTime(df.parse(newDateTimeStr));
-        } catch(Exception e) {
-
-        }
-
+        cal.set(Calendar.HOUR_OF_DAY, hour);
+        cal.set(Calendar.MINUTE, minute);
+        cal.set(Calendar.SECOND, 0);
         Log.v("DATETIME", String.valueOf(cal.getTime()));
         return cal;
 
