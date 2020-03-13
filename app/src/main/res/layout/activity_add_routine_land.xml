@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#3C3C3C"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -23,47 +23,85 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="2">
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="?attr/actionBarSize"
-            app:tabIndicatorColor="#00B1FF"
-            app:tabIndicatorHeight="5dp"
-            app:tabPaddingEnd="16dp"
-            app:tabPaddingStart="16dp"
-            app:tabRippleColor="#00B1FF"
-            app:tabSelectedTextColor="#ffffff"
-            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-            app:tabTextColor="#838383" />
+            android:layout_weight="1">
 
-        <ScrollView
-            android:id="@+id/svContent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/mainTabLayout"
-            android:layout_alignParentTop="false"
-            android:layout_alignParentRight="false">
-
-            <com.example.tugas_besar_ifttw.WrapContentViewPager
-                android:id="@+id/viewPager"
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/mainTabLayout" />
+                app:tabIndicatorColor="#00B1FF"
+                app:tabIndicatorHeight="5dp"
+                app:tabPaddingEnd="16dp"
+                app:tabPaddingStart="16dp"
+                app:tabRippleColor="#00B1FF"
+                app:tabSelectedTextColor="#ffffff"
+                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                app:tabTextColor="#838383" />
 
-        </ScrollView>
-    </RelativeLayout>
+            <ScrollView
+                android:id="@+id/svContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/tabLayout"
+                android:layout_alignParentTop="false"
+                android:layout_alignParentRight="false">
 
-    <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
+                <com.example.tugas_besar_ifttw.WrapContentViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/mainTabLayout" />
+
+            </ScrollView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabLayoutTwo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabIndicatorColor="#00B1FF"
+                app:tabIndicatorHeight="5dp"
+                app:tabPaddingEnd="16dp"
+                app:tabPaddingStart="16dp"
+                app:tabRippleColor="#00B1FF"
+                app:tabSelectedTextColor="#ffffff"
+                app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+                app:tabTextColor="#838383" />
+
+            <ScrollView
+                android:id="@+id/svContentTwo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/tabLayoutTwo"
+                android:layout_alignParentTop="false"
+                android:layout_alignParentRight="false">
+
+                <com.example.tugas_besar_ifttw.WrapContentViewPager
+                    android:id="@+id/viewPagerTwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/mainTabLayout" />
+
+            </ScrollView>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
 
 
     <!--    <include layout="@layout/content_main" />-->
