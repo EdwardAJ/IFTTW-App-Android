@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static com.example.tugas_besar_ifttw.ControllerNewsRoutine.cancelPendingIntent;
@@ -78,6 +79,7 @@ public class ViewRoutine  {
         });
     }
 
+
     public void addSwitchSensorListener(final Context context, final int ID) {
         routineSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -92,6 +94,37 @@ public class ViewRoutine  {
                 }
                 ControllerSensorRoutine.stopService(context);
                 ControllerSensorRoutine.startSensorService(context);
+            }
+        });
+    }
+
+    public void addSwitchAlarmListener(final Context context, final ModelAlarm AlarmObject, final int repeatInterval, final Calendar calendar, final int ID) {
+        routineSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Toast.makeText(context, "Starting Routine...", Toast.LENGTH_SHORT).show();
+                    ControllerAlarmRoutine.startAlarmService(context, AlarmObject, repeatInterval, ID, calendar);
+                    database.updateIsActiveData(String.valueOf(ID), 1);
+                } else {
+                    Toast.makeText(context, "Cancelling Routine...", Toast.LENGTH_SHORT).show();
+                    ControllerAlarmRoutine.cancelPendingIntent(context, AlarmObject, ID);
+                    database.updateIsActiveData(String.valueOf(ID), 0);
+                }
+            }
+        });
+    }
+
+    public void addDeleteButtonAlarmListener(final Context context, final ModelAlarm AlarmObject, final int ID) {
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Deleting Routine...", Toast.LENGTH_SHORT).show();
+                ControllerAlarmRoutine.cancelPendingIntent(context, AlarmObject, ID);
+                database.deleteData(String.valueOf(ID));
+                Intent intent = new Intent(context, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             }
         });
     }
@@ -125,8 +158,6 @@ public class ViewRoutine  {
             }
         });
     }
-
-
 
     public void constructView() {
         RelativeLayout.LayoutParams rlp = new RelativeLayout.LayoutParams(

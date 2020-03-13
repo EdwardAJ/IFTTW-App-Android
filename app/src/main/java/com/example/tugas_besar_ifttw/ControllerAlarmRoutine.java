@@ -10,6 +10,8 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Calendar;
@@ -164,7 +166,25 @@ public class ControllerAlarmRoutine {
         Gson gson = new Gson();
         String jsonAlarmObject = gson.toJson(AlarmObj);
         intent.putExtra("AlarmObj", jsonAlarmObject);
-        Log.v("aoiscka","aisuicuiu12e1");
         return intent;
+    }
+
+    public static Calendar convertStringToCalendar(String date, int hour, int minute) {
+        String[] dateInfo = date.split("/", 3);
+        String year = dateInfo[0];
+        String month = dateInfo[1];
+        String day = dateInfo[2];
+        String hourStr = String.valueOf(hour);
+        String minuteStr = String.valueOf(minute);
+        String dateTimeStr = year + "-" + month + "-" + day + " " + hourStr + ":" + minuteStr + ":00";
+
+        DateFormat df = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+        try {
+            cal.setTime(df.parse(dateTimeStr));
+        } catch(Exception e) {
+
+        }
+        return cal;
     }
 }

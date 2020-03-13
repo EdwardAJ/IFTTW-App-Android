@@ -1,5 +1,6 @@
 package com.example.tugas_besar_ifttw;
 
+import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,8 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import java.util.Calendar;
 
 public class FragmentActiveRoutine extends Fragment {
     View view;
@@ -83,6 +86,31 @@ public class FragmentActiveRoutine extends Fragment {
                     fragmentRelativeLayout.addView(routine.getRelativeLayout());
                     prevRoutineID = result.getString(0);
 
+                } else if (result.getString(4).equals("Alarm")) {
+                    int timerHour = result.getInt(10);
+                    int timerMinute = result.getInt(11);
+                    String timerDate = result.getString(12);
+                    String timerRepeat = result.getString(13);
+
+                    if (timerDate != null) {
+                        condValue = timerDate;
+                    } else if (timerRepeat != null) {
+                        condValue = timerRepeat;
+                    }
+
+                    condName = String.valueOf(timerHour) + ":" + String.valueOf(timerMinute);
+                    ViewRoutine routine = new ViewRoutine(getActivity().getApplicationContext(), baseObject, condName, condValue, isActive);
+
+//                    ModelAlarm AlarmObject = new ModelAlarm(baseObject.modelID, baseObject.action, timerHour, timerMinute, timerDate, timerRepeat);
+//                    AlarmObject.setNotifAttributes(baseObject.notifTitle, baseObject.notifContent);
+
+                    // Listener...
+//                    routine.addSwitchAlarmListener(getActivity().getApplicationContext(), AlarmObject,, final Calendar calendar, final int ID)
+                    if (prevRoutineID != null) {
+                        routine.setRelativeLayoutBelow(prevRoutineID);
+                    }
+                    fragmentRelativeLayout.addView(routine.getRelativeLayout());
+                    prevRoutineID = result.getString(0);
                 }
 
             }

@@ -119,7 +119,4 @@ public class ServiceLightSensor extends IntentService implements SensorEventList
         super.onDestroy();
         Log.v("Destroyed: ", "Destroyed");
     }
-
-
-
 }
